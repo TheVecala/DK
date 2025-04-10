@@ -8,14 +8,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- zvuk   -->
- 
+<link rel="stylesheet" type="text/css" href="/carvadele/css/player/inlineplayer.css" />
+<link rel="stylesheet" type="text/css" href="/carvadele/css/player/flashblock.css" />
 
 <script type="text/javascript" src="/carvadele/js/player/soundmanager2.js"></script>
 <script src="/carvadele/js/player/bar-ui.js"></script>
 <link rel="stylesheet" href="/carvadele/css/player/bar-ui.css" />
 
- 
- 
+<script type="text/javascript" src="/carvadele/js/player/inlineplayer.js"></script>
+<script type="text/javascript" src="/carvadele/js/player/soundmanager2_aplikace.js"></script>
 <style>
 body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace;}
 .w3-row-padding img {margin-bottom: 12px}
@@ -25,17 +26,6 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
 #main {margin-left: 120px}
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
-
-.sm2-bar-ui {
- font-size: 16px;
-}
-.sm2-bar-ui .sm2-main-controls,
-.sm2-bar-ui .sm2-playlist-drawer {
- background-color: #2288cc;
-}
-.sm2-bar-ui .sm2-inline-texture {
- background: transparent;
-}
 </style>
 </head>
 <body class="w3-black">
@@ -50,7 +40,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
   </a>
   <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
     <img src="kytarista.png" width="50" height="50" alt=""> 
-    <p>NAHRÁVKY</p>
+    <p>INFO</p>
   </a>
   <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
     <img src="singer.png" width="50" height="50" alt=""> 
@@ -78,9 +68,9 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
     <h1 class="w3-jumbo"><span class="w3-hide-small"></span>Dušanova kapela</h1>
     <p></p>
-    <img src="kapela1.jpeg" alt="DK " class="w3-image" width="992" height="1108">
+    <img src="kapela1.jpeg" alt="boy" class="w3-image" width="992" height="1108">
 	    
-    <p> Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.</p>
+    <p> Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmených brněnských uskupení.</p>
     
   </header>
 
@@ -154,8 +144,8 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
     
   <!-- End About Section -->
   
- <!-- fixed, full-width player -->
-<div class="sm2-bar-ui  playlist-open flat  textured full-width    "  >
+ <!-- fixed, bottom-aligned, full-width player -->
+<div class="sm2-bar-ui      "  >
 
  <div class="bd sm2-main-controls">
 
@@ -249,21 +239,35 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
 
     <ul class="sm2-playlist-bd">
 
-    
-  <!-- standard one-line items -->
+     <!-- item with "download" link -->
+<!--     <li>
+      <div class="sm2-row">
+       <div class="sm2-col sm2-wide">
+        <a href="http://freshly-ground.com/data/audio/sm2/SonReal%20-%20LA%20%28Prod%20Chin%20Injetti%29.mp3"><b>SonReal</b> - LA<span class="label">Explicit</span></a>
+       </div>
+       <div class="sm2-col">
+        <a href="http://freshly-ground.com/data/audio/sm2/SonReal%20-%20LA%20%28Prod%20Chin%20Injetti%29.mp3" target="_blank" title="Download &quot;LA&quot;" class="sm2-icon sm2-music sm2-exclude">Download this track</a>
+       </div>
+      </div>
+     </li>-->
+
+     <!-- standard one-line items -->
 	 
-      <li><a href="/dk/data/mp3_zkusebna/DK_S48_T365_fishbelly.mp3"><b>DK</b> - Fishbelly</a></li>
-	  <li><a href="/dk/data/mp3_zkusebna/DK_S61_T546_bus.mp3"><b>DK</b> - Autobus</a></li>
-	  <li><a href="/dk/data/mp3_zkusebna/DK_S61_T545_mesto.mp3"><b>DK</b> - Město na kopci</a></li>
-	  <li><a href="/dk/data/mp3_zkusebna/DK_S61_T552_sestup.mp3"><b>DK</b> - Sestup</a></li>
-	  <li><a href="/dk/data/mp3_zkusebna/DK_S59_T509_sedmdevet.mp3"><b>DK</b> - Sedmdesátdevět</a></li>
-	  <li><a href="/dk/data/mp3_zkusebna/DK_S63_T569_dum_3.mp3"><b>DK</b> - O dům dál</a></li>
-	  <li><a href="/dk/data/mp3_zkusebna/DK_S59_T520_tvare.mp3"><b>DK</b> - Tváře</a></li>
-	  <li><a href="/dk/data/mp3_zkusebna/DK_S61_T551_desitka.mp3"><b>DK</b> - Desítka</a></li>
-	  <li><a href="/dk/data/mp3_zkusebna/DK_S52_T414_2_neco.mp3"><b>DK</b> - Něco ti schází</a></li>
-	  <li><a href="/dk/data/mp3_zkusebna/DK_S49_T366_indianska_3.mp3"><b>DK</b> - Indiánská</a></li>
-	  
-     
+      
+      <li><a href="/carvadele/data/mastered_demo/STE-003-mastered_to_nic_neni.mp3"><b>Čarvadele</b> - To nic není</a></li>
+	  <li><a href="/carvadele/data/mastered_demo/STE-008-mastered_po_desti.mp3"><b>Čarvadele</b> - Je po dešti</a></li>
+	  <li><a href="/carvadele/data/mastered_demo/STE-001-mastered_umela_hmota.mp3"><b>Čarvadele</b> - Umělá hmota </a></li>
+      <li><a href="/carvadele/data/mastered_demo/STE-005-mastered_rakovec.mp3"><b>Čarvadele</b> - Rakovec </a></li>
+	  <li><a href="/carvadele/data/mastered_demo/STE-009-mastered_maska.mp3"><b>Čarvadele</b> - Maska</a></li>  
+      <li><a href="/carvadele/data/mastered_demo/STE-004-mastered_baracnici.mp3"><b>Čarvadele</b> - Baráčníci</a></li>
+      <li><a href="/carvadele/data/mastered_demo/STE-007-mastered_cerny_kvet.mp3"><b>Čarvadele</b> - Černý květ</a></li>
+      <li><a href="/carvadele/data/mastered_demo/STE-011-mastered_koleje.mp3"><b>Čarvadele</b> - Koleje</a></li>
+      <li><a href="/carvadele/data/mastered_demo/STE-010-mastered_stesti.mp3"><b>Čarvadele</b> - Štěstí </a></li>
+      <li><a href="/carvadele/data/mastered_demo/STE-012-mastered_predpis.mp3"><b>Čarvadele</b> - Předpis</a></li> 
+      <li><a href="/carvadele/data/mastered_demo/STE-006-mastered_zaplava.mp3"><b>Čarvadele</b> - Záplava</a></li>
+	  <li><a href="/carvadele/data/mastered_demo/STE-002-mastered_na_co_cekat.mp3"><b>Čarvadele</b> - Na co čekat?</a></li>
+      <li><a href="/carvadele/data/mastered_demo/STE-014-mastered_unce_upon_a_time.mp3"><b>Čarvadele</b> - Once upon a time </a></li> 
+	  <li><a href="/carvadele/data/mastered_demo/STE-000-mastered_intro.mp3"><b>Čarvadele</b> -   Outro </a></li>
     
  
     </ul>
@@ -272,8 +276,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
 
  </div>
 
-</div> 
- <!--prehravac--> 
+</div>  <!--prehravac--> 
   
   </div>
   
