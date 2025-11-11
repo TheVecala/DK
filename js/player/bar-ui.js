@@ -1,6 +1,3 @@
-﻿/*jslint plusplus: true, white: true, nomen: true */
-/*global console, document, navigator, soundManager, window */
-
 (function(window) {
 
   /**
@@ -11,7 +8,9 @@
    * http://schillmania.com/projects/soundmanager2/license.txt
    */
 
-  "use strict";
+  /* global console, document, navigator, soundManager, window */
+
+  'use strict';
 
   var Player,
       players = [],
@@ -21,25 +20,29 @@
       utils;
 
   /**
-   * Slightly hackish: event callbacks.
+   * The following are player object event callback examples.
    * Override globally by setting window.sm2BarPlayers.on = {}, or individually by window.sm2BarPlayers[0].on = {} etc.
+   * soundObject is provided for whileplaying() etc., but playback control should be done via the player object.
    */
   players.on = {
     /*
-    play: function(player) {
+    play: function(player, soundObject) {
       console.log('playing', player);
     },
-    finish: function(player) {
+    whileplaying: function(player, soundObject) {
+      console.log('whileplaying', player, soundObject);
+    },
+    finish: function(player, soundObject) {
       // each sound
       console.log('finish', player);
     },
-    pause: function(player) {
+    pause: function(player, soundObject) {
       console.log('pause', player);
     },
-    error: function(player) {
+    error: function(player, soundObject) {
       console.log('error', player);
-    }
-    end: function(player) {
+    },
+    end: function(player, soundObject) {
       // end of playlist
       console.log('end', player);
     }
@@ -66,11 +69,11 @@
     nodes = utils.dom.getAll(playerSelector);
 
     if (nodes && nodes.length) {
-      for (i=0, j=nodes.length; i<j; i++) {
+      for (i = 0, j = nodes.length; i < j; i++) {
         players.push(new Player(nodes[i]));
       }
     }
-  
+
   });
 
   /**
@@ -117,13 +120,13 @@
 
     }
 
-    function callback(method) {
+    function callback(method, oSound) {
       if (method) {
-        // fire callback, passing current turntable object
+        // fire callback, passing current player and sound objects
         if (exports.on && exports.on[method]) {
-          exports.on[method](exports);
+          exports.on[method](exports, oSound);
         } else if (players.on[method]) {
-          players.on[method](exports);
+          players.on[method](exports, oSound);
         }
       }
     }
@@ -132,14 +135,14 @@
 
       // convert milliseconds to hh:mm:ss, return as object literal or string
 
-      var nSec = Math.floor(msec/1000),
-          hh = Math.floor(nSec/3600),
-          min = Math.floor(nSec/60) - Math.floor(hh * 60),
-          sec = Math.floor(nSec -(hh*3600) -(min*60));
+      var nSec = Math.floor(msec / 1000),
+          hh = Math.floor(nSec / 3600),
+          min = Math.floor(nSec / 60) - Math.floor(hh * 60),
+          sec = Math.floor(nSec - (hh * 3600) - (min * 60));
 
       // if (min === 0 && sec === 0) return null; // return 0:00 as null
 
-      return (useString ? ((hh ? hh + ':' : '') + (hh && min < 10 ? '0' + min : min) + ':' + ( sec < 10 ? '0' + sec : sec ) ) : { 'min': min, 'sec': sec });
+      return (useString ? ((hh ? hh + ':' : '') + (hh && min < 10 ? '0' + min : min) + ':' + (sec < 10 ? '0' + sec : sec)) : { min: min, sec: sec });
 
     }
 
@@ -177,19 +180,21 @@
           var progressMaxLeft = 100,
               left,
               width;
-  
+
           left = Math.min(progressMaxLeft, Math.max(0, (progressMaxLeft * (this.position / this.durationEstimate)))) + '%';
-          width = Math.min(100, Math.max(0, (100 * this.position / this.durationEstimate))) + '%';
-  
+          width = Math.min(100, Math.max(0, (100 * (this.position / this.durationEstimate)))) + '%';
+
           if (this.duration) {
 
             dom.progress.style.left = left;
             dom.progressBar.style.width = width;
-              
+
             // TODO: only write changes
             dom.time.innerHTML = getTime(this.position, true);
 
           }
+
+          callback('whileplaying', this);
 
         },
 
@@ -205,12 +210,12 @@
 
         onplay: function() {
           utils.css.swap(dom.o, 'paused', 'playing');
-          callback('play');
+          callback('play', this);
         },
 
         onpause: function() {
           utils.css.swap(dom.o, 'playing', 'paused');
-          callback('pause');
+          callback('pause', this);
         },
 
         onresume: function() {
@@ -252,7 +257,7 @@
             // playlistTarget.innerHTML = '<ul class="sm2-playlist-bd"><li>' + item.innerHTML + '</li></ul>';
 
             if (extras.loadFailedCharacter) {
-              dom.playlistTarget.innerHTML = dom.playlistTarget.innerHTML.replace('<li>' ,'<li>' + extras.loadFailedCharacter + ' ');
+              dom.playlistTarget.innerHTML = dom.playlistTarget.innerHTML.replace('<li>', '<li>' + extras.loadFailedCharacter + ' ');
               if (playlistController.data.playlist && playlistController.data.playlist[playlistController.data.selectedIndex]) {
                 element = playlistController.data.playlist[playlistController.data.selectedIndex].getElementsByTagName('a')[0];
                 html = element.innerHTML;
@@ -264,10 +269,10 @@
 
           }
 
-          callback('error');
+          callback('error', this);
 
           // load next, possibly with delay.
-            
+
           if (navigator.userAgent.match(/mobile/i)) {
             // mobile will likely block the next play() call if there is a setTimeout() - so don't use one here.
             actions.next();
@@ -296,13 +301,13 @@
 
           lastIndex = playlistController.data.selectedIndex;
 
-          callback('finish');
+          callback('finish', this);
 
           // next track?
           item = playlistController.getNext();
 
-          // don't play the same item over and over again, if at end of playlist etc.
-          if (item && playlistController.data.selectedIndex !== lastIndex) {
+          // don't play the same item over and over again, if at end of playlist (excluding single item case.)
+          if (item && (playlistController.data.selectedIndex !== lastIndex || (playlistController.data.playlist.length === 1 && playlistController.data.loopMode))) {
 
             playlistController.select(item);
 
@@ -322,7 +327,7 @@
             // explicitly stop?
             // this.stop();
 
-            callback('end');
+            callback('end', this);
 
           }
 
@@ -442,7 +447,7 @@
 
         if (list) {
 
-          for (i=0, j=list.length; i<j; i++) {
+          for (i = 0, j = list.length; i < j; i++) {
             if (list[i] === item) {
               offset = i;
               break;
@@ -519,7 +524,7 @@
 
         items = utils.dom.getAll(dom.playlist, '.' + css.selected);
 
-        for (i=0, j=items.length; i<j; i++) {
+        for (i = 0, j = items.length; i < j; i++) {
           utils.css.remove(items[i], css.selected);
         }
 
@@ -552,7 +557,7 @@
 
           if (itemBottom > containerHeight + scrollTop) {
             // bottom-align
-            dom.playlist.scrollTop = itemBottom - containerHeight + itemPadding;
+            dom.playlist.scrollTop = (itemBottom - containerHeight) + itemPadding;
           } else if (itemTop < scrollTop) {
             // top-align
             dom.playlist.scrollTop = item.offsetTop - itemPadding;
@@ -561,7 +566,7 @@
         }
 
         // update selected offset, too.
-        offset = findOffsetFromItem(item);
+        offset = findOffsetFromItem(liElement);
 
         data.selectedIndex = offset;
 
@@ -574,7 +579,7 @@
         offset = (offset || 0);
 
         item = getItem(offset);
-        
+
         if (item) {
           playLink(item.getElementsByTagName('a')[0]);
         }
@@ -587,7 +592,7 @@
         var item, url;
 
         item = getItem();
-      
+
         if (item) {
           url = item.getElementsByTagName('a')[0].href;
         }
@@ -604,7 +609,7 @@
           if (window.console && console.warn) {
             console.warn('refreshDOM(): playlist node not found?');
           }
-          return false;
+          return;
         }
 
         data.playlist = dom.playlist.getElementsByTagName('li');
@@ -619,7 +624,7 @@
 
       }
 
-      function init() {
+      function initPlaylistController() {
 
         // inherit the default SM2 volume
         defaultVolume = soundManager.defaultOptions.volume;
@@ -637,7 +642,7 @@
 
       }
 
-      init();
+      initPlaylistController();
 
       return {
         data: data,
@@ -660,6 +665,8 @@
         return true;
       }
 
+      return false;
+
     }
 
     function getActionData(target) {
@@ -667,7 +674,7 @@
       // DOM measurements for volume slider
 
       if (!target) {
-        return false;
+        return;
       }
 
       actionData.volume.x = utils.position.getOffX(target);
@@ -694,7 +701,7 @@
       target = e.target || e.srcElement;
 
       if (isRightClick(e)) {
-        return true;
+        return;
       }
 
       // normalize to <a>, if applicable.
@@ -714,12 +721,82 @@
         getActionData(target);
 
         utils.events.add(document, 'mousemove', actions.adjustVolume);
+        utils.events.add(document, 'touchmove', actions.adjustVolume);
         utils.events.add(document, 'mouseup', actions.releaseVolume);
+        utils.events.add(document, 'touchend', actions.releaseVolume);
 
         // and apply right away
-        return actions.adjustVolume(e);
+        actions.adjustVolume(e);
 
       }
+
+    }
+
+    function handleMouse(e) {
+
+      var target, barX, barWidth, x, clientX, newPosition, sound;
+
+      target = dom.progressTrack;
+
+      barX = utils.position.getOffX(target);
+      barWidth = target.offsetWidth;
+      clientX = utils.events.getClientX(e);
+
+      x = (clientX - barX);
+
+      newPosition = (x / barWidth);
+
+      sound = soundObject;
+
+      if (sound && sound.duration) {
+
+        sound.setPosition(sound.duration * newPosition);
+
+        // a little hackish: ensure UI updates immediately with current position, even if audio is buffering and hasn't moved there yet.
+        if (sound._iO && sound._iO.whileplaying) {
+          sound._iO.whileplaying.apply(sound);
+        }
+
+      }
+
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+
+      return false;
+
+    }
+
+    function releaseMouse(e) {
+
+      utils.events.remove(document, 'mousemove', handleMouse);
+      utils.events.remove(document, 'touchmove', handleMouse);
+
+      utils.css.remove(dom.o, 'grabbing');
+
+      utils.events.remove(document, 'mouseup', releaseMouse);
+      utils.events.remove(document, 'touchend', releaseMouse);
+
+      utils.events.preventDefault(e);
+
+      return false;
+
+    }
+
+    function handleProgressMouseDown(e) {
+
+      if (isRightClick(e)) {
+        return;
+      }
+
+      utils.css.add(dom.o, 'grabbing');
+
+      utils.events.add(document, 'mousemove', handleMouse);
+      utils.events.add(document, 'touchmove', handleMouse);
+      utils.events.add(document, 'mouseup', releaseMouse);
+      utils.events.add(document, 'touchend', releaseMouse);
+
+      handleMouse(e);
 
     }
 
@@ -787,7 +864,7 @@
 
             if (offset !== -1) {
 
-              methodName = target.href.substr(offset+1);
+              methodName = target.href.substr(offset + 1);
 
               if (methodName && actions[methodName]) {
                 handled = true;
@@ -809,53 +886,7 @@
 
       }
 
-    }
-
-    function handleMouse(e) {
-
-      var target, barX, barWidth, x, newPosition, sound;
-
-      target = dom.progressTrack;
-
-      barX = utils.position.getOffX(target);
-      barWidth = target.offsetWidth;
-
-      x = (e.clientX - barX);
-
-      newPosition = (x / barWidth);
-
-      sound = soundObject;
-
-      if (sound && sound.duration) {
-
-        sound.setPosition(sound.duration * newPosition);
-
-        // a little hackish: ensure UI updates immediately with current position, even if audio is buffering and hasn't moved there yet.
-        if (sound._iO && sound._iO.whileplaying) {
-          sound._iO.whileplaying.apply(sound);
-        }
-
-      }
-
-      if (e.preventDefault) {
-        e.preventDefault();
-      }
-
-      return false;
-
-    }
-
-    function releaseMouse(e) {
-
-      utils.events.remove(document, 'mousemove', handleMouse);
-
-      utils.css.remove(dom.o, 'grabbing');
-
-      utils.events.remove(document, 'mouseup', releaseMouse);
-
-      utils.events.preventDefault(e);
-
-      return false;
+      return true;
 
     }
 
@@ -863,7 +894,7 @@
 
       // init DOM?
 
-      if (!playerNode) {
+      if (!playerNode && window.console && console.warn) {
         console.warn('init(): No playerNode element?');
       }
 
@@ -907,22 +938,10 @@
       }
 
       utils.events.add(dom.o, 'mousedown', handleMouseDown);
-
+      utils.events.add(dom.o, 'touchstart', handleMouseDown);
       utils.events.add(dom.o, 'click', handleClick);
-
-      utils.events.add(dom.progressTrack, 'mousedown', function(e) {
-
-        if (isRightClick(e)) {
-          return true;
-        }
-
-        utils.css.add(dom.o, 'grabbing');
-        utils.events.add(document, 'mousemove', handleMouse);
-        utils.events.add(document, 'mouseup', releaseMouse);
-
-        return handleMouse(e);
-
-      });
+      utils.events.add(dom.progressTrack, 'mousedown', handleProgressMouseDown);
+      utils.events.add(dom.progressTrack, 'touchstart', handleProgressMouseDown);
 
     }
 
@@ -947,7 +966,7 @@
         /**
          * This is an overloaded function that takes mouse/touch events or offset-based item indices.
          * Remember, "auto-play" will not work on mobile devices unless this function is called immediately from a touch or click event.
-         * If you have the link but not the offset, you can also pass a fake event object with a target of an <a> inside the playlist - e.g. { target: someMP3Link }         
+         * If you have the link but not the offset, you can also pass a fake event object with a target of an <a> inside the playlist - e.g. { target: someMP3Link }
          */
 
         var target,
@@ -956,7 +975,8 @@
 
         if (offsetOrEvent !== undefined && !isNaN(offsetOrEvent)) {
           // smells like a number.
-          return playlistController.playItemByOffset(offsetOrEvent);
+          playlistController.playItemByOffset(offsetOrEvent);
+          return;
         }
 
         // DRY things a bit
@@ -1131,7 +1151,10 @@
           return false;
         }
 
-        if (!e || e.clientX === undefined) {
+        // normalize between mouse and touch events
+        var clientX = utils.events.getClientX(e);
+
+        if (!e || clientX === undefined) {
           // called directly or with a non-mouseEvent object, etc.
           // proxy to the proper method.
           if (arguments.length && window.console && window.console.warn) {
@@ -1146,14 +1169,14 @@
         backgroundMargin = (100 - actionData.volume.backgroundSize) / 2;
 
         // relative position of mouse over element
-        value = Math.max(0, Math.min(1, (e.clientX - actionData.volume.x) / actionData.volume.width));
+        value = Math.max(0, Math.min(1, (clientX - actionData.volume.x) / actionData.volume.width));
 
-        target.style.clip = 'rect(0px, ' + (actionData.volume.width * value) + 'px, ' + actionData.volume.height + 'px, ' + (actionData.volume.width * (backgroundMargin/100)) + 'px)';
+        target.style.clip = 'rect(0px, ' + (actionData.volume.width * value) + 'px, ' + actionData.volume.height + 'px, ' + (actionData.volume.width * (backgroundMargin / 100)) + 'px)';
 
         // determine logical volume, including background margin
-        pixelMargin = ((backgroundMargin/100) * actionData.volume.width);
+        pixelMargin = ((backgroundMargin / 100) * actionData.volume.width);
 
-        volume = Math.max(0, Math.min(1, ((e.clientX - actionData.volume.x) - pixelMargin) / (actionData.volume.width - (pixelMargin*2)))) * 100;
+        volume = Math.max(0, Math.min(1, ((clientX - actionData.volume.x) - pixelMargin) / (actionData.volume.width - (pixelMargin * 2)))) * 100;
 
         // set volume
         if (soundObject) {
@@ -1169,7 +1192,9 @@
       releaseVolume: function(/* e */) {
 
         utils.events.remove(document, 'mousemove', actions.adjustVolume);
+        utils.events.remove(document, 'touchmove', actions.adjustVolume);
         utils.events.remove(document, 'mouseup', actions.releaseVolume);
+        utils.events.remove(document, 'touchend', actions.releaseVolume);
 
       },
 
@@ -1200,10 +1225,10 @@
           backgroundMargin = (100 - backgroundSize) / 2;
 
           // margin as pixel value relative to width
-          backgroundOffset = actionData.volume.width * (backgroundMargin/100);
+          backgroundOffset = actionData.volume.width * (backgroundMargin / 100);
 
           from = backgroundOffset;
-          to = from + ((actionData.volume.width - (backgroundOffset*2)) * (volume/100));
+          to = from + ((actionData.volume.width - (backgroundOffset * 2)) * (volume / 100));
 
           target.style.clip = 'rect(0px, ' + to + 'px, ' + actionData.volume.height + 'px, ' + from + 'px)';
 
@@ -1267,7 +1292,7 @@
         var i, j, temp;
 
         for (i = array.length - 1; i > 0; i--) {
-          j = Math.floor(Math.random() * (i+1));
+          j = Math.floor(Math.random() * (i + 1));
           temp = array[i];
           array[i] = array[j];
           array[j] = temp;
@@ -1295,7 +1320,7 @@
       function addClass(o, cStr) {
 
         if (!o || !cStr || hasClass(o, cStr)) {
-          return false; // safety net
+          return; // safety net
         }
         o.className = (o.className ? o.className + ' ' : '') + cStr;
 
@@ -1304,7 +1329,7 @@
       function removeClass(o, cStr) {
 
         if (!o || !cStr || !hasClass(o, cStr)) {
-          return false;
+          return;
         }
         o.className = o.className.replace(new RegExp('( ' + cStr + ')|(' + cStr + ')', 'g'), '');
 
@@ -1389,7 +1414,7 @@
 
         // hackish: if an array, return the last item.
         if (results && results.length) {
-          return results[results.length-1];
+          return results[results.length - 1];
         }
 
         // handle "not found" case
@@ -1398,8 +1423,6 @@
       }
 
       function ancestor(nodeName, element, checkCurrent) {
-
-        var result;
 
         if (!element || !nodeName) {
           return element;
@@ -1516,7 +1539,7 @@
 
     events: (function() {
 
-      var add, remove, preventDefault;
+      var add, remove, preventDefault, getClientX;
 
       add = function(o, evtName, evtHandler) {
         // return an object with a convenient detach method.
@@ -1549,10 +1572,17 @@
         return false;
       };
 
+      getClientX = function(e) {
+        // normalize between desktop (mouse) and touch (mobile/tablet/?) events.
+        // note pageX for touch, which normalizes zoom/scroll/pan vs. clientX.
+        return (e && (e.clientX || (e.touches && e.touches[0] && e.touches[0].pageX)));
+      };
+
       return {
         add: add,
         preventDefault: preventDefault,
-        remove: remove
+        remove: remove,
+        getClientX: getClientX
       };
 
     }()),
@@ -1561,9 +1591,9 @@
 
       var getAnimationFrame,
           localAnimationFrame,
-            localFeatures,
-            prop,
-            styles,
+          localFeatures,
+          prop,
+          styles,
           testDiv,
           transform;
 
@@ -1587,12 +1617,10 @@
         return localAnimationFrame.apply(window, arguments);
       } : null;
 
-      function has(prop) {
+      function has(propName) {
 
         // test for feature support
-        var result = testDiv.style[prop];
-
-        return (result !== undefined ? prop : null);
+        return (testDiv.style[propName] !== undefined ? propName : null);
 
       }
 
