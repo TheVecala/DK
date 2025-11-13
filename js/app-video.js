@@ -13,8 +13,62 @@ const videoList = [
     id: 2,
     title: "DK - Fishbelly",
     sources: {
-      mp4: "data/koncert_unleaded/IMG_6024.mp4",
+      mp4: "data/koncert_unleaded/IMG_6024.m44 ",
       ogg: "data/koncert_unleaded/IMG_6024.ogg"
+    },
+    poster: "dk_logo.jpg"
+  },
+  {
+    id: 3,
+    title: "DK - Kolotoč",
+    sources: {
+      mp4: "data/koncert_unleaded/IMG_6025.mp4 ",
+      ogg: "data/koncert_unleaded/IMG_6025.ogg"
+    },
+    poster: "dk_logo.jpg"
+  },
+  {
+    id: 4,
+    title: "DK - Tváře",
+    sources: {
+      mp4: "data/koncert_unleaded/IMG_6026.mp4 ",
+      ogg: "data/koncert_unleaded/IMG_6026.ogg"
+    },
+    poster: "dk_logo.jpg"
+  },
+  {
+    id: 5,
+    title: "DK - O dům dál",
+    sources: {
+      mp4: "data/koncert_unleaded/IMG_6028.mp4 ",
+      ogg: "data/koncert_unleaded/IMG_6028.ogg"
+    },
+    poster: "dk_logo.jpg"
+  },
+  {
+    id: 6,
+    title: "DK - Město",
+    sources: {
+      mp4: "data/koncert_unleaded/IMG_6029.mp4 ",
+      ogg: "data/koncert_unleaded/IMG_6029.ogg"
+    },
+    poster: "dk_logo.jpg"
+  },
+  {
+    id: 7,
+    title: "DK - Sestup",
+    sources: {
+      mp4: "data/koncert_unleaded/IMG_6030.mp4 ",
+      ogg: "data/koncert_unleaded/IMG_6030.ogg"
+    },
+    poster: "dk_logo.jpg"
+  },
+  {
+    id: 8,
+    title: "DK - Slunko",
+    sources: {
+      mp4: "data/koncert_unleaded/IMG_6031.mp4",
+      ogg: "data/koncert_unleaded/IMG_6031.ogg"
     },
     poster: "dk_logo.jpg"
   }
