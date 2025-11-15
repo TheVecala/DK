@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>W3.CSS Video Playlist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+    <style>
+        /* Malá úprava pro responzivní iframe */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Poměr stran 16:9 */
+            height: 0;
+            overflow: hidden;
+            width: 100%;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body class="w3-light-grey">
+
+<div class="w3-container w3-padding-16">
+    <h2>Live v Unleaded cafe</h2>
+
+    <div class="w3-row w3-border">
+
+        <div class="w3-col m8 l8">
+            <div class="video-container">
+                <iframe id="videoPlayer" 
+                        src="https://www.youtube.com/embed/PRVY-yUPG8c" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <div class="w3-col m4 l4">
+            
+            <div class="w3-bar-block w3-white w3-card" style="height: 100%; overflow-y: auto;">
+                <h3 class="w3-bar-item w3-teal">Playlist</h3>
+                
+                <a href="#" class="w3-bar-item w3-button videoLink w3-blue" data-video-id="PRVY-yUPG8c">Video 1: Cestování</a>
+                <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="SO5whaA5jL0">Video 2: Příroda</a>
+                <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="KLuYf5r4lms">Video 3: Technologie</a>
+                <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="3tmd-ClpJxA">Video 4: Relax</a>
+                <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="N6nBEXS-qPI">Video 5: Vesmír</a>
+                <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="kXYiU_JCYtU">Video 6: Kódování</a>
+                <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="jfKfPfyJRdk">Video 7: Zvířata</a>
+                <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="dQw4w9WgXcQ">Video 8: Hudba</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    // Třída, kterou budeme označovat aktivní video
+    const activeClass = 'w3-blue'; 
+    
+    // Najdeme všechny odkazy v našem playlistu
+    const videoLinks = document.querySelectorAll('.videoLink');
+    
+    // Najdeme náš iframe přehrávač
+    const playerFrame = document.getElementById('videoPlayer');
+  
+    videoLinks.forEach(link => {
+      link.addEventListener('click', function(event) {
+        // Zabráníme defaultní akci odkazu (aby stránka neskákala nahoru)
+        event.preventDefault(); 
+        
+        // --- Vylepšení pro W3.CSS ---
+        // 1. Odebereme aktivní třídu ze VŠECH odkazů
+        videoLinks.forEach(otherLink => {
+          otherLink.classList.remove(activeClass);
+        });
+  
+        // 2. Přidáme aktivní třídu jen tomuto kliknutému odkazu
+        this.classList.add(activeClass);
+        
+        // --- Konec vylepšení ---
+
+        // 3. Získáme ID videa z 'data-video-id' atributu
+        const videoId = this.getAttribute('data-video-id');
+        
+        // 4. Změníme 'src' atribut v iframe
+        // Přidáváme ?autoplay=1, aby se video rovnou spustilo
+        playerFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      });
+    });
+</script>
+
+</body>
+</html>
