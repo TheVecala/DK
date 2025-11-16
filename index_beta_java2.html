@@ -245,30 +245,27 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
 		<div class="w3-row w3-border">
 
 			<div class="w3-col m8 l8">
-				<div class="video-container">
-					<iframe id="videoPlayer" 
-							src="https://www.youtube.com/embed/BWg6EmP4nRI?rel=0" 
-							frameborder="0" 
-							allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-							allowfullscreen>
-					</iframe>
-				</div>
+			
+			
+			 <video id="mainVideoPlayer" width=100%  controls playsinline>
+				<source id="sourceMP4" type="video/mp4" src="">
+				<source id="sourceOGG" type="video/ogg" src="">
+				  Tohle video ti nepovalí, bo máš starej kompl.
+			 </video>
+				
+				
+				
 			</div>
 
 			<div class="w3-col m4 l4">
+			
+			
+		     <h2>Seznam válů</h2>
+			 <div id="playlistContainer">
+			 </div>
+
 				
-				<div class="w3-bar-block w3-black w3-card" style="height: 100%; overflow-y: auto;">
-					<!-- <h3 class="w3-bar-item w3-teal">Playlist</h3> -->
-					
-					<a href="#" class="w3-bar-item w3-button videoLink w3-blue" data-video-id="BWg6EmP4nRI?rel=0">DK - Autobus</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="XpCJqwfjje0?rel=0">DK - Fishbelly</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="zqf4TJtvRsw?rel=0">DK - Kolotoč</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="KSZIlw23K5s?rel=0">DK - Tváře</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="1IGYq1520BM?rel=0">DK - O dům dál</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="SBz-Ofr01k4?rel=0">DK - Město</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="7pwvNBzqQm4?rel=0">DK - Sestup</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="znySxPRXuBg?rel=0">DK - Slunko</a>
-				</div>
+				
 			</div>
 
 		</div>
@@ -306,40 +303,6 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
 <!-- END PAGE CONTENT -->
 </div>
  
-<script>
-    // Třída, kterou budeme označovat aktivní video
-    const activeClass = 'w3-blue'; 
-    
-    // Najdeme všechny odkazy v našem playlistu
-    const videoLinks = document.querySelectorAll('.videoLink');
-    
-    // Najdeme náš iframe přehrávač
-    const playerFrame = document.getElementById('videoPlayer');
-  
-    videoLinks.forEach(link => {
-      link.addEventListener('click', function(event) {
-        // Zabráníme defaultní akci odkazu (aby stránka neskákala nahoru)
-        event.preventDefault(); 
-        
-        // --- Vylepšení pro W3.CSS ---
-        // 1. Odebereme aktivní třídu ze VŠECH odkazů
-        videoLinks.forEach(otherLink => {
-          otherLink.classList.remove(activeClass);
-        });
-  
-        // 2. Přidáme aktivní třídu jen tomuto kliknutému odkazu
-        this.classList.add(activeClass);
-        
-        // --- Konec vylepšení ---
-
-        // 3. Získáme ID videa z 'data-video-id' atributu
-        const videoId = this.getAttribute('data-video-id');
-        
-        // 4. Změníme 'src' atribut v iframe
-        // Přidáváme ?autoplay=1, aby se video rovnou spustilo
-        playerFrame.src = `https://www.youtube.com/embed/${videoId}`;
-      });
-    });
-</script>
+ <script src="js/app-video.js"></script> 
 </body>
 </html>
