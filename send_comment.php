@@ -1,23 +1,22 @@
 <?php
-// send_comment.php - Zjednodušená verze (bez emailu odesílatele)
+// send_comment.php
 
-// Nastavení příjemce
-$recipient = "dusan@mezi3a5.cz"; 
+// OPRAVENO: email příjemce – uprav pokud bude nová schránka na dusanovakapela.cz
+$recipient = "dusan@mezi3a5.cz";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // 1. OCHRANA PROTI SPAMU
+    // 1. OCHRANA PROTI SPAMU (honeypot)
     if (!empty($_POST['robot_check'])) {
         header("Location: index.php?status=bot#kontakt");
         exit;
     }
 
-    // 2. NAČTENÍ DAT
-    // Email a Předmět jsme odstranili, bereme jen Jméno a Zprávu
-    $name = strip_tags(trim($_POST["Name"]));
-    $message = trim($_POST["Message"]);
+    // 2. NAČTENÍ A SANITACE DAT
+    $name    = strip_tags(trim($_POST["Name"] ?? ''));
+    // OPRAVENO: přidán strip_tags i pro zprávu
+    $message = strip_tags(trim($_POST["Message"] ?? ''));
 
-    // Pevně daný předmět emailu, který vám přijde do schránky
     $subject = "Nový vzkaz na webu od: $name";
 
     // 3. VALIDACE
@@ -26,16 +25,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
+    // OPRAVENO: omezení délky zprávy na 5000 znaků
+    if (mb_strlen($message) > 5000) {
+        header("Location: index.php?status=error#kontakt");
+        exit;
+    }
+
     // 4. SESTAVENÍ EMAILU
-    $email_content = "Odesílatel: $name\n\n";
+    $email_content  = "Odesílatel: $name\n\n";
     $email_content .= "Zpráva:\n--------------------\n";
     $email_content .= "$message\n";
     $email_content .= "--------------------\n";
     $email_content .= "(Na tento email nelze odpovědět, odesílatel neuvedl kontakt)";
 
-    // Hlavičky
-    // Používáme systémový email, protože neznáme email odesílatele
-    $email_headers = "From: Web Form <noreply@mezi3a5.cz>\r\n";
+    // OPRAVENO: From: doména změněna na dusanovakapela.cz (SPF záznamy)
+    $email_headers  = "From: Web Form <noreply@dusanovakapela.cz>\r\n";
     $email_headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
     // 5. ODESLÁNÍ

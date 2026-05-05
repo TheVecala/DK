@@ -1,5 +1,5 @@
- <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="cs">
 <head>
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -14,25 +14,16 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- zvuk   -->
-<!-- <script type="text/javascript" src="/carvadele/js/player/soundmanager2.js"></script> -->
-<!-- <script src="/carvadele/js/player/bar-ui.js"></script> -->
-<!-- <link rel="stylesheet" href="/carvadele/css/player/bar-ui.css" /> -->
 
 <script type="text/javascript" src="js/player/soundmanager2.js"></script>
 <script src="js/player/bar-ui.js"></script>
 <link rel="stylesheet" href="css/player/bar-ui.css" />
 
- 
- 
 <style>
 body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace;}
 .w3-row-padding img {margin-bottom: 12px}
-/* Set the width of the sidebar to 120px */
 .w3-sidebar {width: 120px;background: #222;}
-/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
 #main {margin-left: 120px}
-/* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
 
 .sm2-bar-ui {
@@ -67,22 +58,21 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
 
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <!-- Avatar image in top left corner -->
   <img src="dk_logo.jpg" style="width:100%">
   <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <img src="singer.png" width="50" height="50" alt=""> 
+    <img src="singer.png" width="50" height="50" alt="">
     <p>HOME</p>
   </a>
   <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <img src="kytarista.png" width="50" height="50" alt=""> 
+    <img src="kytarista.png" width="50" height="50" alt="">
     <p>NAHRÁVKY</p>
   </a>
   <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <img src="singer.png" width="50" height="50" alt=""> 
+    <img src="singer.png" width="50" height="50" alt="">
     <p>FOTKY</p>
   </a>
   <a href="#video" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <img src="kytarista.png" width="50" height="50" alt=""> 
+    <img src="kytarista.png" width="50" height="50" alt="">
     <p>VIDEO</p>
   </a>
 </nav>
@@ -102,262 +92,249 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
   <!-- Header/Home -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
     <h1 class="w3-jumbo"><span class="w3-hide-small"></span>Dušanova kapela</h1>
-    <p></p>
-    <img src="kapela1.jpeg" alt="DK " class="w3-image" width="992" height="1108">
-	    
-    <p> Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.</p>
-    
+    <img src="kapela1.jpeg" alt="Dušanova kapela" class="w3-image" width="992" height="1108">
+    <p>Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.</p>
   </header>
 
   <!-- player Section -->
-	  <div class="w3-content w3-justify w3-padding-64" id="about">
-		  <div class="w3-display-container">
-		  <hr> 
-		  <h2>Demo</h2>
+  <div class="w3-content w3-justify w3-padding-64" id="about">
+      <div class="w3-display-container">
+      <hr>
+      <h2>Demo</h2>
 
-			<!-- fixed, full-width player -->
-			<div class="sm2-bar-ui  playlist-open flat  textured full-width "  >
+        <!-- fixed, full-width player -->
+        <div class="sm2-bar-ui  playlist-open flat  textured full-width">
 
-			 <div class="bd sm2-main-controls">
+         <div class="bd sm2-main-controls">
 
-			  <div class="sm2-inline-texture"></div>
-			  <div class="sm2-inline-gradient"></div>
+          <div class="sm2-inline-texture"></div>
+          <div class="sm2-inline-gradient"></div>
 
-		 	  <div id="tady_stiskni" class="sm2-inline-element sm2-button-element"  data-container="body" data-toggle="popover" data-placement="top" data-content=" ">
-			   <div class="sm2-button-bd">
-				<a href="#play" class="sm2-inline-button play-pause">Play / pause</a>
-			   </div>
-			  </div>
+          <div id="tady_stiskni" class="sm2-inline-element sm2-button-element" data-container="body" data-toggle="popover" data-placement="top" data-content=" ">
+           <div class="sm2-button-bd">
+            <a href="#play" class="sm2-inline-button play-pause">Play / pause</a>
+           </div>
+          </div>
 
-			  <div class="sm2-inline-element sm2-inline-status">
+          <div class="sm2-inline-element sm2-inline-status">
 
-			   <div class="sm2-playlist">
-				<div class="sm2-playlist-target"> 
-				 <noscript><p>JavaScript is required.</p></noscript>
-				</div>
-			   </div>
+           <div class="sm2-playlist">
+            <div class="sm2-playlist-target">
+             <noscript><p>JavaScript is required.</p></noscript>
+            </div>
+           </div>
 
-			   <div class="sm2-progress">
-				<div class="sm2-row">
-				<div class="sm2-inline-time">0:00</div>
-				 <div class="sm2-progress-bd">
-				  <div class="sm2-progress-track">
-				   <div class="sm2-progress-bar"></div>
-				   <div class="sm2-progress-ball"><div class="icon-overlay"></div></div>
-				  </div>
-				 </div>
-				 <div class="sm2-inline-duration">0:00</div>
-				</div>
-			   </div>
+           <div class="sm2-progress">
+            <div class="sm2-row">
+            <div class="sm2-inline-time">0:00</div>
+             <div class="sm2-progress-bd">
+              <div class="sm2-progress-track">
+               <div class="sm2-progress-bar"></div>
+               <div class="sm2-progress-ball"><div class="icon-overlay"></div></div>
+              </div>
+             </div>
+             <div class="sm2-inline-duration">0:00</div>
+            </div>
+           </div>
 
-			  </div>
+          </div>
 
-			  <div class="sm2-inline-element sm2-button-element sm2-volume">
-			   <div class="sm2-button-bd">
-				<span class="sm2-inline-button sm2-volume-control volume-shade"></span>
-				<a href="#volume" class="sm2-inline-button sm2-volume-control">volume</a>
-			   </div>
-			  </div>
+          <div class="sm2-inline-element sm2-button-element sm2-volume">
+           <div class="sm2-button-bd">
+            <span class="sm2-inline-button sm2-volume-control volume-shade"></span>
+            <a href="#volume" class="sm2-inline-button sm2-volume-control">volume</a>
+           </div>
+          </div>
 
-			  <div class="sm2-inline-element sm2-button-element">
-			   <div class="sm2-button-bd">
-				<a href="#prev" title="Previous" class="sm2-inline-button previous">&lt; previous</a>
-			   </div>
-			  </div>
+          <div class="sm2-inline-element sm2-button-element">
+           <div class="sm2-button-bd">
+            <a href="#prev" title="Previous" class="sm2-inline-button previous">&lt; previous</a>
+           </div>
+          </div>
 
-			  <div class="sm2-inline-element sm2-button-element">
-			   <div class="sm2-button-bd">
-				<a href="#next" title="Next" class="sm2-inline-button next">&gt; next</a>
-			   </div>
-			  </div>
+          <div class="sm2-inline-element sm2-button-element">
+           <div class="sm2-button-bd">
+            <a href="#next" title="Next" class="sm2-inline-button next">&gt; next</a>
+           </div>
+          </div>
 
-			  <div class="sm2-inline-element sm2-button-element">
-			   <div class="sm2-button-bd">
-				<a href="#repeat" title="Repeat playlist" class="sm2-inline-button repeat">&infin; repeat</a>
-			   </div>
-			  </div>
+          <div class="sm2-inline-element sm2-button-element">
+           <div class="sm2-button-bd">
+            <a href="#repeat" title="Repeat playlist" class="sm2-inline-button repeat">&infin; repeat</a>
+           </div>
+          </div>
 
-			  <div class="sm2-inline-element sm2-button-element sm2-menu">
-			   <div class="sm2-button-bd">
-				<a href="#menu" class="sm2-inline-button menu">menu</a>
-			   </div>
-			  </div>
+          <div class="sm2-inline-element sm2-button-element sm2-menu">
+           <div class="sm2-button-bd">
+            <a href="#menu" class="sm2-inline-button menu">menu</a>
+           </div>
+          </div>
 
-			 </div>
+         </div>
 
-			 <div class="bd sm2-playlist-drawer sm2-element">
+         <div class="bd sm2-playlist-drawer sm2-element">
 
-			  <div class="sm2-inline-texture">
-			   <div class="sm2-box-shadow"></div>
-			  </div>
+          <div class="sm2-inline-texture">
+           <div class="sm2-box-shadow"></div>
+          </div>
 
-			  <div class="sm2-playlist-wrapper">
+          <div class="sm2-playlist-wrapper">
 
-				<ul class="sm2-playlist-bd">	 	 
-				  <li><a href="/dk/data/mp3_mix1/mix_bus_14_4.mp3"><b>DK</b> - Autobus</a></li>
-				  <li><a href="/dk/data/mp3_mix1/mix_fish_30.mp3"><b>DK</b> - Fishbelly</a></li>
-				  <li><a href="/dk/data/mp3_mix1/mix_dum_18_1.mp3"><b>DK</b> - O dům dál</a></li>
-				  <li><a href="/dk/data/mp3_mix1/mix_kolotoc_16.mp3"><b>DK</b> - Kolotoč</a></li>
-				  <li><a href="/dk/data/mp3_mix1/mix_tvare_12.mp3"><b>DK</b> - Tváře</a></li>
-				  <li><a href="/dk/data/mp3_mix1/mix_mesto_14_2.mp3"><b>DK</b> - Město na kopci</a></li>
-				  <li><a href="/dk/data/mp3_mix1/mix_sestup_7_4.mp3"><b>DK</b> - Sestup</a></li>
-				  <li><a href="/dk/data/mp3_mix1/DK_S85_T927_slunko.mp3"><b>DK</b> - Slunko</a></li>
-				   <!-- starší věci -->
-				  <!-- <li><a href="/dk/data/mp3_zkusebna/DK_S49_T366_indianska_3.mp3"><b>DK</b> - Indiánská <span class="label">bonus</span></a></li> -->
-				  <!-- <li><a href="/dk/data/mp3_zkusebna/DK_S61_T551_desitka.mp3"><b>DK</b> - Desítka <span class="label">bonus</span></a></li> -->
-				  <!-- <li><a href="/dk/data/mp3_mix1/DK_S79_T794_sedmdevet.mp3"><b>DK</b> - Sedmdesátdevět <span class="label">improvizace</span></a></li> -->
-				</ul>
-				 
-			  </div>
+            <ul class="sm2-playlist-bd">
+              <!-- OPRAVENO: cesty změněny z /dk/data/ na /data/ pro novou doménu -->
+              <li><a href="/data/mp3_mix1/mix_bus_14_4.mp3"><b>DK</b> - Autobus</a></li>
+              <li><a href="/data/mp3_mix1/mix_fish_30.mp3"><b>DK</b> - Fishbelly</a></li>
+              <li><a href="/data/mp3_mix1/mix_dum_18_1.mp3"><b>DK</b> - O dům dál</a></li>
+              <li><a href="/data/mp3_mix1/mix_kolotoc_16.mp3"><b>DK</b> - Kolotoč</a></li>
+              <li><a href="/data/mp3_mix1/mix_tvare_12.mp3"><b>DK</b> - Tváře</a></li>
+              <li><a href="/data/mp3_mix1/mix_mesto_14_2.mp3"><b>DK</b> - Město na kopci</a></li>
+              <li><a href="/data/mp3_mix1/mix_sestup_7_4.mp3"><b>DK</b> - Sestup</a></li>
+              <li><a href="/data/mp3_mix1/DK_S85_T927_slunko.mp3"><b>DK</b> - Slunko</a></li>
+            </ul>
 
-			 </div>
+          </div>
 
-			</div> 
-			 <!--prehravac--> 			 
-		  </div> 
+         </div>
 
-          <div class="w3-display-container">
-		  <hr> 
-		  <h2>Live v Unleaded cafe 2025</h2>
+        </div>
+        <!--prehravac-->
+      </div>
 
- 	 
-		<div class="sm2-bar-ui compact full-width">
+      <div class="w3-display-container">
+      <hr>
+      <h2>Live v Unleaded cafe 2025</h2>
 
-		 <div class="bd sm2-main-controls">
+      <div class="sm2-bar-ui compact full-width">
 
-		  <div class="sm2-inline-texture"></div>
-		  <div class="sm2-inline-gradient"></div>
+       <div class="bd sm2-main-controls">
 
-		  <div class="sm2-inline-element sm2-button-element">
-		   <div class="sm2-button-bd">
-			<a href="#play" class="sm2-inline-button play-pause">Play / pause</a>
-		   </div>
-		  </div>
+        <div class="sm2-inline-texture"></div>
+        <div class="sm2-inline-gradient"></div>
 
-		  <div class="sm2-inline-element sm2-inline-status">
+        <div class="sm2-inline-element sm2-button-element">
+         <div class="sm2-button-bd">
+          <a href="#play" class="sm2-inline-button play-pause">Play / pause</a>
+         </div>
+        </div>
 
-		   <div class="sm2-playlist">
-			<div class="sm2-playlist-target">
-			 <!-- playlist <ul> + <li> markup will be injected here -->
-			 <!-- if you want default / non-JS content, you can put that here. -->
-			 <noscript><p>JavaScript is required.</p></noscript>
-			</div>
-		   </div>
+        <div class="sm2-inline-element sm2-inline-status">
 
-		   <div class="sm2-progress">
-			<div class="sm2-row">
-			<div class="sm2-inline-time">0:00</div>
-			 <div class="sm2-progress-bd">
-			  <div class="sm2-progress-track">
-			   <div class="sm2-progress-bar"></div>
-			   <div class="sm2-progress-ball"><div class="icon-overlay"></div></div>
-			  </div>
-			 </div>
-			 <div class="sm2-inline-duration">0:00</div>
-			</div>
-		   </div>
+         <div class="sm2-playlist">
+          <div class="sm2-playlist-target">
+           <noscript><p>JavaScript is required.</p></noscript>
+          </div>
+         </div>
 
-		  </div>
+         <div class="sm2-progress">
+          <div class="sm2-row">
+          <div class="sm2-inline-time">0:00</div>
+           <div class="sm2-progress-bd">
+            <div class="sm2-progress-track">
+             <div class="sm2-progress-bar"></div>
+             <div class="sm2-progress-ball"><div class="icon-overlay"></div></div>
+            </div>
+           </div>
+           <div class="sm2-inline-duration">0:00</div>
+          </div>
+         </div>
 
-		  <div class="sm2-inline-element sm2-button-element sm2-volume">
-		   <div class="sm2-button-bd">
-			<span class="sm2-inline-button sm2-volume-control volume-shade"></span>
-			<a href="#volume" class="sm2-inline-button sm2-volume-control">volume</a>
-		   </div>
-		  </div>
+        </div>
 
-		 </div>
+        <div class="sm2-inline-element sm2-button-element sm2-volume">
+         <div class="sm2-button-bd">
+          <span class="sm2-inline-button sm2-volume-control volume-shade"></span>
+          <a href="#volume" class="sm2-inline-button sm2-volume-control">volume</a>
+         </div>
+        </div>
 
-		 <div class="bd sm2-playlist-drawer sm2-element">
+       </div>
 
-		  <div class="sm2-inline-texture">
-		   <div class="sm2-box-shadow"></div>
-		  </div>
+       <div class="bd sm2-playlist-drawer sm2-element">
 
-		  <!-- playlist content is mirrored here -->
+        <div class="sm2-inline-texture">
+         <div class="sm2-box-shadow"></div>
+        </div>
 
-		  <div class="sm2-playlist-wrapper">
-			<ul class="sm2-playlist-bd">
-			 <li><a href="/dk/data/koncert_unleaded/DK_S95_T1000_koncert.mp3">Live v Unleaded cafe 2025</a></li>
-			</ul>
-		  </div>
+        <div class="sm2-playlist-wrapper">
+          <ul class="sm2-playlist-bd">
+           <!-- OPRAVENO: cesta změněna z /dk/data/ na /data/ -->
+           <li><a href="/data/koncert_unleaded/DK_S95_T1000_koncert.mp3">Live v Unleaded cafe 2025</a></li>
+          </ul>
+        </div>
 
-		 </div>
+       </div>
 
-		</div>  <!-- konec druhého přehrávače-->
+      </div>  <!-- konec druhého přehrávače-->
 
-          </div> 
+      </div>
 
-		  
-	  </div>  <!-- konec player Section -->
-	  
+  </div>  <!-- konec player Section -->
+
      <!-- Portfolio Section -->
      <div class="w3-padding-64 w3-content" id="photos">
-		<hr> 
-		<h2>Fotky</h2>
+        <hr>
+        <h2>Fotky</h2>
 
-		<!-- Grid for photos -->
-		<div class="w3-row-padding" style="margin:0 -16px">
-		
-		  <div class="w3-half">	   
-			<img src="dusan1.jpg" style="width:100%">
-			<img src="DK_zk.jpg" style="width:100%">        
-		  </div>
+        <!-- Grid for photos -->
+        <div class="w3-row-padding" style="margin:0 -16px">
 
-		  <div class="w3-half">
-			<img src="kopr2.jpg" style="width:100%">        
-		  </div>
-		
-		</div> <!-- End photo grid -->
-	 </div> <!-- End Portfolio Section -->
+          <div class="w3-half">
+            <img src="dusan1.jpg" style="width:100%">
+            <img src="DK_zk.jpg" style="width:100%">
+          </div>
+
+          <div class="w3-half">
+            <img src="kopr2.jpg" style="width:100%">
+          </div>
+
+        </div> <!-- End photo grid -->
+     </div> <!-- End Portfolio Section -->
 
 
-	 <!-- Grid for videos -->  	
+     <!-- Grid for videos -->
      <div class="w3-container w3-padding-16" id="video">
-	    <hr> 
-		<h2>Live v Unleaded cafe 2025</h2>
+        <hr>
+        <h2>Live v Unleaded cafe 2025</h2>
 
-		<div class="w3-row w3-border">
+        <div class="w3-row w3-border">
 
-			<div class="w3-col m8 l8">
-				<div class="video-container">
-					<iframe id="videoPlayer" 
-							src="https://www.youtube.com/embed/BWg6EmP4nRI?rel=0" 
-							frameborder="0" 
-							allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-							allowfullscreen>
-					</iframe>
-				</div>
-			</div>
+            <div class="w3-col m8 l8">
+                <div class="video-container">
+                    <iframe id="videoPlayer"
+                            src="https://www.youtube.com/embed/BWg6EmP4nRI?rel=0"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
 
-			<div class="w3-col m4 l4">
-				
-				<div class="w3-bar-block w3-black w3-card" style="height: 100%; overflow-y: auto;">
-					<!-- <h3 class="w3-bar-item w3-teal">Playlist</h3> -->
-					
-					<a href="#" class="w3-bar-item w3-button videoLink w3-blue" data-video-id="BWg6EmP4nRI?rel=0">DK - Autobus</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="XpCJqwfjje0?rel=0">DK - Fishbelly</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="zqf4TJtvRsw?rel=0">DK - Kolotoč</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="KSZIlw23K5s?rel=0">DK - Tváře</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="1IGYq1520BM?rel=0">DK - O dům dál</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="SBz-Ofr01k4?rel=0">DK - Město</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="7pwvNBzqQm4?rel=0">DK - Sestup</a>
-					<a href="#" class="w3-bar-item w3-button videoLink" data-video-id="znySxPRXuBg?rel=0">DK - Slunko</a>
-				</div>
-			</div>
+            <div class="w3-col m4 l4">
 
-		</div>
+                <div class="w3-bar-block w3-black w3-card" style="height: 100%; overflow-y: auto;">
+                    <a href="#" class="w3-bar-item w3-button videoLink w3-blue" data-video-id="BWg6EmP4nRI?rel=0">DK - Autobus</a>
+                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="XpCJqwfjje0?rel=0">DK - Fishbelly</a>
+                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="zqf4TJtvRsw?rel=0">DK - Kolotoč</a>
+                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="KSZIlw23K5s?rel=0">DK - Tváře</a>
+                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="1IGYq1520BM?rel=0">DK - O dům dál</a>
+                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="SBz-Ofr01k4?rel=0">DK - Město</a>
+                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="7pwvNBzqQm4?rel=0">DK - Sestup</a>
+                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="znySxPRXuBg?rel=0">DK - Slunko</a>
+                </div>
+            </div>
+
+        </div>
     </div>
+    <!-- End video grid -->
 
-     <!-- End video grid -->
- 
-  <!-- video Section -->
-   <div class="w3-padding-64 w3-content w3-text-grey" >
+  <!-- Kontakt Section -->
+  <!-- OPRAVENO: přidáno id="kontakt" aby přesměrování po formuláři fungovalo -->
+  <div class="w3-padding-64 w3-content w3-text-grey" id="kontakt">
     <h2 class="w3-text-light-grey">Kontakt</h2>
     <hr style="width:200px" class="w3-opacity">
 
-<div class="w3-section">
-       <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: dusan@mezi3a5.cz</p> 
+    <div class="w3-section">
+       <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: dusan@mezi3a5.cz</p>
     </div><br>
 
     <?php
@@ -375,59 +352,49 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
     <p>Napiš vzkaz:</p>
 
     <form action="send_comment.php" method="POST">
-      
+
+      <!-- Honeypot ochrana proti botům - pole musí být vizuálně skryté přes CSS, ne type="hidden" -->
       <div style="display:none; opacity:0; visibility:hidden;">
           <label>Nevyplňujte toto pole, pokud jste člověk:</label>
           <input type="text" name="robot_check" value="">
       </div>
 
         <p><textarea class="w3-input w3-padding-16" placeholder="Zpráva pro kapelu..." required name="Message" rows="5"></textarea></p>
-       <p><input class="w3-input w3-padding-16" type="text" placeholder="Jméno" required name="Name"></p>
+        <p><input class="w3-input w3-padding-16" type="text" placeholder="Jméno" required name="Name"></p>
       <p>
         <button class="w3-button w3-light-grey w3-padding-large" type="submit">
-          <i class="fa fa-paper-plane"></i> ODESLAT 
+          <i class="fa fa-paper-plane"></i> ODESLAT
         </button>
       </p>
     </form>
-  
-  </div> 
-  
- 
+
+  </div>
+
+
 <!-- END PAGE CONTENT -->
 </div>
- 
+
 <script>
-    // Třída, kterou budeme označovat aktivní video
-    const activeClass = 'w3-blue'; 
-    
-    // Najdeme všechny odkazy v našem playlistu
+    const activeClass = 'w3-blue';
     const videoLinks = document.querySelectorAll('.videoLink');
-    
-    // Najdeme náš iframe přehrávač
     const playerFrame = document.getElementById('videoPlayer');
-  
+
     videoLinks.forEach(link => {
       link.addEventListener('click', function(event) {
-        // Zabráníme defaultní akci odkazu (aby stránka neskákala nahoru)
-        event.preventDefault(); 
-        
-        // --- Vylepšení pro W3.CSS ---
-        // 1. Odebereme aktivní třídu ze VŠECH odkazů
+        event.preventDefault();
+
+        // Odebereme aktivní třídu ze všech odkazů
         videoLinks.forEach(otherLink => {
           otherLink.classList.remove(activeClass);
         });
-  
-        // 2. Přidáme aktivní třídu jen tomuto kliknutému odkazu
-        this.classList.add(activeClass);
-        
-        // --- Konec vylepšení ---
 
-        // 3. Získáme ID videa z 'data-video-id' atributu
+        // Přidáme aktivní třídu kliknutému odkazu
+        this.classList.add(activeClass);
+
         const videoId = this.getAttribute('data-video-id');
-        
-        // 4. Změníme 'src' atribut v iframe
-        // Přidáváme ?autoplay=1, aby se video rovnou spustilo
-        playerFrame.src = `https://www.youtube.com/embed/${videoId}`;
+
+        // OPRAVENO: přidán autoplay=1 aby se video spustilo po kliknutí
+        playerFrame.src = `https://www.youtube.com/embed/${videoId}&autoplay=1`;
       });
     });
 </script>
