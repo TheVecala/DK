@@ -1,3 +1,0 @@
-# Přesměrování index.html na index.php (Trvalé 301)
-RewriteEngine On
-RewriteRule ^index\.html$ index.php [R=301,L]
