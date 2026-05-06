@@ -291,41 +291,26 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
      </div> <!-- End Portfolio Section -->
 
 
-     <!-- Grid for videos -->
+     <!-- Video sekce -->
      <div class="w3-container w3-padding-16" id="video">
         <hr>
         <h2>Live v Unleaded cafe 2025</h2>
 
-        <div class="w3-row w3-border">
-
-            <div class="w3-col m8 l8">
-                <div class="video-container">
-                    <iframe id="videoPlayer"
-                            src="https://www.youtube.com/embed/BWg6EmP4nRI?rel=0"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-
-            <div class="w3-col m4 l4">
-
-                <div class="w3-bar-block w3-black w3-card" style="height: 100%; overflow-y: auto;">
-                    <a href="#" class="w3-bar-item w3-button videoLink w3-blue" data-video-id="BWg6EmP4nRI?rel=0">DK - Autobus</a>
-                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="XpCJqwfjje0?rel=0">DK - Fishbelly</a>
-                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="zqf4TJtvRsw?rel=0">DK - Kolotoč</a>
-                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="KSZIlw23K5s?rel=0">DK - Tváře</a>
-                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="1IGYq1520BM?rel=0">DK - O dům dál</a>
-                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="SBz-Ofr01k4?rel=0">DK - Město</a>
-                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="7pwvNBzqQm4?rel=0">DK - Sestup</a>
-                    <a href="#" class="w3-bar-item w3-button videoLink" data-video-id="znySxPRXuBg?rel=0">DK - Slunko</a>
-                </div>
-            </div>
-
+        <!-- Hlavní přehrávač -->
+        <div class="video-container" style="margin-bottom: 16px;">
+            <iframe id="videoPlayer"
+                    src="https://www.youtube.com/embed/BWg6EmP4nRI?rel=0"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
         </div>
+
+        <!-- Mřížka videí s náhledy -->
+        <div id="videoGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 12px;"></div>
+
     </div>
-    <!-- End video grid -->
+    <!-- End video sekce -->
 
   <!-- Kontakt Section -->
   <!-- OPRAVENO: přidáno id="kontakt" aby přesměrování po formuláři fungovalo -->
@@ -375,27 +360,83 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
 </div>
 
 <script>
-    const activeClass = 'w3-blue';
-    const videoLinks = document.querySelectorAll('.videoLink');
-    const playerFrame = document.getElementById('videoPlayer');
+    const videos = [
+        { id: 'BWg6EmP4nRI', title: 'DK - Autobus' },
+        { id: 'XpCJqwfjje0', title: 'DK - Fishbelly' },
+        { id: 'zqf4TJtvRsw', title: 'DK - Kolotoč' },
+        { id: 'KSZIlw23K5s', title: 'DK - Tváře' },
+        { id: '1IGYq1520BM', title: 'DK - O dům dál' },
+        { id: 'SBz-Ofr01k4', title: 'DK - Město' },
+        { id: '7pwvNBzqQm4', title: 'DK - Sestup' },
+        { id: 'znySxPRXuBg', title: 'DK - Slunko' },
+    ];
 
-    videoLinks.forEach(link => {
-      link.addEventListener('click', function(event) {
-        event.preventDefault();
+    const grid = document.getElementById('videoGrid');
+    const player = document.getElementById('videoPlayer');
+    let activeCard = null;
 
-        // Odebereme aktivní třídu ze všech odkazů
-        videoLinks.forEach(otherLink => {
-          otherLink.classList.remove(activeClass);
+    const cardStyle = `
+        background: #1a1a1a;
+        border: 2px solid transparent;
+        border-radius: 6px;
+        overflow: hidden;
+        cursor: pointer;
+    `;
+    const thumbStyle = `
+        position: relative;
+        padding-bottom: 56.25%;
+        background: #000;
+        overflow: hidden;
+    `;
+    const imgStyle = `
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        display: block;
+    `;
+    const overlayStyle = `
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.3);
+    `;
+    const titleStyle = `
+        padding: 6px 8px 8px;
+        font-size: 12px;
+        color: #ddd;
+        line-height: 1.3;
+    `;
+
+    videos.forEach((v, i) => {
+        const card = document.createElement('div');
+        card.style.cssText = cardStyle;
+        card.innerHTML = `
+            <div style="${thumbStyle}">
+                <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="${v.title}" style="${imgStyle}">
+                <div style="${overlayStyle}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="white" opacity="0.85">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </div>
+            </div>
+            <div style="${titleStyle}">${v.title}</div>`;
+
+        if (i === 0) {
+            card.style.border = '2px solid #2288cc';
+            activeCard = card;
+        }
+
+        card.addEventListener('click', () => {
+            if (activeCard) activeCard.style.border = '2px solid transparent';
+            card.style.border = '2px solid #2288cc';
+            activeCard = card;
+            player.src = `https://www.youtube.com/embed/${v.id}?rel=0&autoplay=1`;
         });
 
-        // Přidáme aktivní třídu kliknutému odkazu
-        this.classList.add(activeClass);
-
-        const videoId = this.getAttribute('data-video-id');
-
-        // OPRAVENO: přidán autoplay=1 aby se video spustilo po kliknutí
-        playerFrame.src = `https://www.youtube.com/embed/${videoId}&autoplay=1`;
-      });
+        grid.appendChild(card);
     });
 </script>
 </body>
