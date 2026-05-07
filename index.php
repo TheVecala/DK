@@ -1,325 +1,216 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="manifest" href="/site.webmanifest" />
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dušanova kapela</title>
-    <meta name="description" content="Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<script type="text/javascript" src="js/player/soundmanager2.js"></script>
-<script src="js/player/bar-ui.js"></script>
-<link rel="stylesheet" href="css/player/bar-ui.css" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dušanova kapela</title>
+  <meta name="description" content="Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style>
-body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace;}
-.w3-row-padding img {margin-bottom: 12px}
-.w3-sidebar {width: 120px;background: #222;}
-#main {margin-left: 120px}
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
+body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", monospace; }
+.w3-row-padding img { margin-bottom: 12px; }
+.w3-sidebar { width: 120px; background: #222; }
+#main { margin-left: 120px; }
+@media only screen and (max-width: 600px) { #main { margin-left: 0; } }
 
-.sm2-bar-ui {
- font-size: 16px;
+.video-container {
+  position: relative; padding-bottom: 56.25%;
+  height: 0; overflow: hidden; width: 100%;
 }
-.sm2-bar-ui .sm2-main-controls,
-.sm2-bar-ui .sm2-playlist-drawer {
- background-color: #2288cc;
-}
-.sm2-bar-ui .sm2-inline-texture {
- background: transparent;
+.video-container iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
 }
 
-        /* Malá úprava pro responzivní iframe */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* Poměr stran 16:9 */
-            height: 0;
-            overflow: hidden;
-            width: 100%;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+/* ===== AUDIO PŘEHRÁVAČ ===== */
+.pw { background:#2e1f0a; border:1px solid #7a5520; border-radius:8px; padding:20px; font-family:"Courier New",monospace; box-sizing:border-box; max-width:480px; margin:0 auto; }
+.pw-label { font-size:12px; color:#a07840; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
+.pw-title { font-size:17px; color:#f0d890; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pw-subtitle { font-size:13px; color:#a07840; margin-bottom:14px; }
+.pw-progress-wrap { position:relative; height:6px; background:#4a3010; cursor:pointer; margin-bottom:6px; }
+.pw-progress-fill { height:100%; background:#c8962a; width:0%; pointer-events:none; }
+.pw-times { display:flex; justify-content:space-between; font-size:13px; color:#a07840; margin-bottom:14px; }
+.pw-controls { display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:16px; flex-wrap:wrap; }
+.pw-btn { background:transparent; border:1px solid #7a5520; color:#c8962a; border-radius:4px; width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; transition:background .15s,border-color .15s; }
+.pw-btn:hover { background:#4a3010; border-color:#c8962a; }
+.pw-btn.pw-play { width:48px; height:48px; border-color:#c8962a; }
+.pw-btn.pw-active { background:#4a3010; border-color:#c8962a; color:#f0d890; }
+.pw-btn svg { width:20px; height:20px; fill:currentColor; flex-shrink:0; }
+.pw-btn.pw-play svg { width:24px; height:24px; }
+.pw-volume { display:flex; align-items:center; gap:8px; margin-bottom:16px; }
+.pw-vol-icon { color:#a07840; display:flex; }
+.pw-vol-icon svg { width:18px; height:18px; fill:#a07840; }
+.pw-vol-slider { flex:1; -webkit-appearance:none; appearance:none; height:4px; background:#4a3010; outline:none; cursor:pointer; }
+.pw-vol-slider::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:#c8962a; cursor:pointer; }
+.pw-vol-slider::-moz-range-thumb { width:14px; height:14px; border-radius:50%; background:#c8962a; cursor:pointer; border:none; }
+.pw-divider { border:none; border-top:1px solid #4a3010; margin:0 0 12px; }
+.pw-playlist { list-style:none; margin:0; padding:0; }
+@media (max-width:600px) {
+  .pw-playlist { max-height:220px; overflow-y:auto; }
+  .pw-playlist::-webkit-scrollbar { width:4px; }
+  .pw-playlist::-webkit-scrollbar-track { background:#2e1f0a; }
+  .pw-playlist::-webkit-scrollbar-thumb { background:#7a5520; border-radius:2px; }
+}
+.pw-playlist li { display:flex; align-items:center; gap:10px; padding:8px 6px; cursor:pointer; border-radius:3px; font-size:14px; color:#a07840; transition:background .1s; }
+.pw-playlist li:hover { background:#4a3010; color:#f0d890; }
+.pw-playlist li.pw-active-track { color:#f0d890; background:#4a3010; }
+.pw-playlist li .pw-num { min-width:18px; text-align:right; flex-shrink:0; }
+.pw-playlist li .pw-dur { margin-left:auto; flex-shrink:0; }
 </style>
 </head>
 <body class="w3-black">
 
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<!-- Sidebar -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-  <img src="dk_logo.jpg" style="width:100%">
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-    <img src="singer.png" width="50" height="50" alt="">
-    <p>HOME</p>
-  </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <img src="kytarista.png" width="50" height="50" alt="">
-    <p>NAHRÁVKY</p>
-  </a>
-  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <img src="singer.png" width="50" height="50" alt="">
-    <p>FOTKY</p>
-  </a>
-  <a href="#video" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-    <img src="kytarista.png" width="50" height="50" alt="">
-    <p>VIDEO</p>
-  </a>
+  <img src="dk_logo.jpg" style="width:100%" alt="DK logo">
+  <a href="#"       class="w3-bar-item w3-button w3-padding-large w3-black"><img src="singer.png" width="50" height="50" alt=""><p>HOME</p></a>
+  <a href="#about"  class="w3-bar-item w3-button w3-padding-large w3-hover-black"><img src="kytarista.png" width="50" height="50" alt=""><p>NAHRÁVKY</p></a>
+  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><img src="singer.png" width="50" height="50" alt=""><p>FOTKY</p></a>
+  <a href="#video"  class="w3-bar-item w3-button w3-padding-large w3-hover-black"><img src="kytarista.png" width="50" height="50" alt=""><p>VIDEO</p></a>
 </nav>
 
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<!-- Navbar na mobilu -->
 <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
   <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">NAHRÁVKY</a>
+    <a href="#"       class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+    <a href="#about"  class="w3-bar-item w3-button" style="width:25% !important">NAHRÁVKY</a>
     <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">FOTKY</a>
-    <a href="#video" class="w3-bar-item w3-button" style="width:25% !important">VIDEO</a>
+    <a href="#video"  class="w3-bar-item w3-button" style="width:25% !important">VIDEO</a>
   </div>
 </div>
 
-<!-- Page Content -->
 <div class="w3-padding-large" id="main">
-  <!-- Header/Home -->
+
+  <!-- Header -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
-    <h1 class="w3-jumbo"><span class="w3-hide-small"></span>Dušanova kapela</h1>
+    <h1 class="w3-jumbo">Dušanova kapela</h1>
     <img src="kapela1.jpeg" alt="Dušanova kapela" class="w3-image" width="992" height="1108">
     <p>Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.</p>
   </header>
 
-  <!-- player Section -->
+  <!-- Přehrávače -->
   <div class="w3-content w3-justify w3-padding-64" id="about">
-      <div class="w3-display-container">
-      <hr>
-      <h2>Demo</h2>
 
-        <!-- fixed, full-width player -->
-        <div class="sm2-bar-ui  playlist-open flat  textured full-width">
+    <hr>
+    <h2>Demo</h2>
 
-         <div class="bd sm2-main-controls">
-
-          <div class="sm2-inline-texture"></div>
-          <div class="sm2-inline-gradient"></div>
-
-          <div id="tady_stiskni" class="sm2-inline-element sm2-button-element" data-container="body" data-toggle="popover" data-placement="top" data-content=" ">
-           <div class="sm2-button-bd">
-            <a href="#play" class="sm2-inline-button play-pause">Play / pause</a>
-           </div>
-          </div>
-
-          <div class="sm2-inline-element sm2-inline-status">
-
-           <div class="sm2-playlist">
-            <div class="sm2-playlist-target">
-             <noscript><p>JavaScript is required.</p></noscript>
-            </div>
-           </div>
-
-           <div class="sm2-progress">
-            <div class="sm2-row">
-            <div class="sm2-inline-time">0:00</div>
-             <div class="sm2-progress-bd">
-              <div class="sm2-progress-track">
-               <div class="sm2-progress-bar"></div>
-               <div class="sm2-progress-ball"><div class="icon-overlay"></div></div>
-              </div>
-             </div>
-             <div class="sm2-inline-duration">0:00</div>
-            </div>
-           </div>
-
-          </div>
-
-          <div class="sm2-inline-element sm2-button-element sm2-volume">
-           <div class="sm2-button-bd">
-            <span class="sm2-inline-button sm2-volume-control volume-shade"></span>
-            <a href="#volume" class="sm2-inline-button sm2-volume-control">volume</a>
-           </div>
-          </div>
-
-          <div class="sm2-inline-element sm2-button-element">
-           <div class="sm2-button-bd">
-            <a href="#prev" title="Previous" class="sm2-inline-button previous">&lt; previous</a>
-           </div>
-          </div>
-
-          <div class="sm2-inline-element sm2-button-element">
-           <div class="sm2-button-bd">
-            <a href="#next" title="Next" class="sm2-inline-button next">&gt; next</a>
-           </div>
-          </div>
-
-          <div class="sm2-inline-element sm2-button-element">
-           <div class="sm2-button-bd">
-            <a href="#repeat" title="Repeat playlist" class="sm2-inline-button repeat">&infin; repeat</a>
-           </div>
-          </div>
-
-          <div class="sm2-inline-element sm2-button-element sm2-menu">
-           <div class="sm2-button-bd">
-            <a href="#menu" class="sm2-inline-button menu">menu</a>
-           </div>
-          </div>
-
-         </div>
-
-         <div class="bd sm2-playlist-drawer sm2-element">
-
-          <div class="sm2-inline-texture">
-           <div class="sm2-box-shadow"></div>
-          </div>
-
-          <div class="sm2-playlist-wrapper">
-
-            <ul class="sm2-playlist-bd">
-              <!-- OPRAVENO: cesty změněny z /dk/data/ na /data/ pro novou doménu -->
-              <li><a href="/data/mp3_mix1/mix_bus_14_4.mp3"><b>DK</b> - Autobus</a></li>
-              <li><a href="/data/mp3_mix1/mix_fish_30.mp3"><b>DK</b> - Fishbelly</a></li>
-              <li><a href="/data/mp3_mix1/mix_dum_18_1.mp3"><b>DK</b> - O dům dál</a></li>
-              <li><a href="/data/mp3_mix1/mix_kolotoc_16.mp3"><b>DK</b> - Kolotoč</a></li>
-              <li><a href="/data/mp3_mix1/mix_tvare_12.mp3"><b>DK</b> - Tváře</a></li>
-              <li><a href="/data/mp3_mix1/mix_mesto_14_2.mp3"><b>DK</b> - Město na kopci</a></li>
-              <li><a href="/data/mp3_mix1/mix_sestup_7_4.mp3"><b>DK</b> - Sestup</a></li>
-              <li><a href="/data/mp3_mix1/DK_S85_T927_slunko.mp3"><b>DK</b> - Slunko</a></li>
-            </ul>
-
-          </div>
-
-         </div>
-
-        </div>
-        <!--prehravac-->
+    <!-- Přehrávač 1: Demo playlist -->
+    <div class="pw">
+      <div class="pw-label">▮ Dušanova kapela — demo</div>
+      <div class="pw-title" id="p1-title">DK — Autobus</div>
+      <div class="pw-subtitle">Demo nahrávka</div>
+      <div class="pw-progress-wrap" id="p1-progwrap">
+        <div class="pw-progress-fill" id="p1-prog"></div>
       </div>
-
-      <div class="w3-display-container">
-      <hr>
-      <h2>Live v Unleaded cafe 2025</h2>
-
-      <div class="sm2-bar-ui compact full-width">
-
-       <div class="bd sm2-main-controls">
-
-        <div class="sm2-inline-texture"></div>
-        <div class="sm2-inline-gradient"></div>
-
-        <div class="sm2-inline-element sm2-button-element">
-         <div class="sm2-button-bd">
-          <a href="#play" class="sm2-inline-button play-pause">Play / pause</a>
-         </div>
-        </div>
-
-        <div class="sm2-inline-element sm2-inline-status">
-
-         <div class="sm2-playlist">
-          <div class="sm2-playlist-target">
-           <noscript><p>JavaScript is required.</p></noscript>
-          </div>
-         </div>
-
-         <div class="sm2-progress">
-          <div class="sm2-row">
-          <div class="sm2-inline-time">0:00</div>
-           <div class="sm2-progress-bd">
-            <div class="sm2-progress-track">
-             <div class="sm2-progress-bar"></div>
-             <div class="sm2-progress-ball"><div class="icon-overlay"></div></div>
-            </div>
-           </div>
-           <div class="sm2-inline-duration">0:00</div>
-          </div>
-         </div>
-
-        </div>
-
-        <div class="sm2-inline-element sm2-button-element sm2-volume">
-         <div class="sm2-button-bd">
-          <span class="sm2-inline-button sm2-volume-control volume-shade"></span>
-          <a href="#volume" class="sm2-inline-button sm2-volume-control">volume</a>
-         </div>
-        </div>
-
-       </div>
-
-       <div class="bd sm2-playlist-drawer sm2-element">
-
-        <div class="sm2-inline-texture">
-         <div class="sm2-box-shadow"></div>
-        </div>
-
-        <div class="sm2-playlist-wrapper">
-          <ul class="sm2-playlist-bd">
-           <!-- OPRAVENO: cesta změněna z /dk/data/ na /data/ -->
-           <li><a href="/data/koncert_unleaded/DK_S95_T1000_koncert.mp3">Live v Unleaded cafe 2025</a></li>
-          </ul>
-        </div>
-
-       </div>
-
-      </div>  <!-- konec druhého přehrávače-->
-
+      <div class="pw-times"><span id="p1-cur">0:00</span><span id="p1-dur">0:00</span></div>
+      <div class="pw-controls">
+        <button class="pw-btn" id="p1-restart" title="Začátek skladby">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+        </button>
+        <button class="pw-btn" id="p1-prev" title="Předchozí">
+          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z" transform="scale(-1,1) translate(-24,0)"/></svg>
+        </button>
+        <button class="pw-btn pw-play" id="p1-play" title="Přehrát / Pozastavit">
+          <svg viewBox="0 0 24 24" id="p1-icon"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="pw-btn" id="p1-next" title="Další">
+          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z"/></svg>
+        </button>
+        <button class="pw-btn" id="p1-rep" title="Opakovat">
+          <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+        </button>
       </div>
-
-  </div>  <!-- konec player Section -->
-
-     <!-- Portfolio Section -->
-     <div class="w3-padding-64 w3-content" id="photos">
-        <hr>
-        <h2>Fotky</h2>
-
-        <!-- Grid for photos -->
-        <div class="w3-row-padding" style="margin:0 -16px">
-
-          <div class="w3-half">
-            <img src="dusan1.jpg" style="width:100%">
-            <img src="DK_zk.jpg" style="width:100%">
-          </div>
-
-          <div class="w3-half">
-            <img src="kopr2.jpg" style="width:100%">
-          </div>
-
-        </div> <!-- End photo grid -->
-     </div> <!-- End Portfolio Section -->
-
-
-     <!-- Video sekce -->
-     <div class="w3-container w3-padding-16" id="video">
-        <hr>
-        <h2>Live v Unleaded cafe 2025</h2>
-
-        <!-- Hlavní přehrávač -->
-        <div class="video-container" style="margin-bottom: 16px;">
-            <iframe id="videoPlayer"
-                    src="https://www.youtube.com/embed/BWg6EmP4nRI?rel=0"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-            </iframe>
-        </div>
-
-        <!-- Mřížka videí s náhledy -->
-        <div id="videoGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 12px;"></div>
-
+      <div class="pw-volume">
+        <span class="pw-vol-icon"><svg viewBox="0 0 24 24"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg></span>
+        <input type="range" class="pw-vol-slider" min="0" max="100" value="80" id="p1-vol">
+        <span class="pw-vol-icon"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></span>
+      </div>
+      <hr class="pw-divider">
+      <ul class="pw-playlist" id="p1-list">
+        <li data-src="/data/mp3_mix1/mix_bus_14_4.mp3"       class="pw-active-track"><span class="pw-num">♪</span><span>DK — Autobus</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_fish_30.mp3"        ><span class="pw-num">2</span><span>DK — Fishbelly</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_dum_18_1.mp3"       ><span class="pw-num">3</span><span>DK — O dům dál</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_kolotoc_16.mp3"     ><span class="pw-num">4</span><span>DK — Kolotoč</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_tvare_12.mp3"       ><span class="pw-num">5</span><span>DK — Tváře</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_mesto_14_2.mp3"     ><span class="pw-num">6</span><span>DK — Město na kopci</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_sestup_7_4.mp3"     ><span class="pw-num">7</span><span>DK — Sestup</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/DK_S85_T927_slunko.mp3" ><span class="pw-num">8</span><span>DK — Slunko</span><span class="pw-dur"></span></li>
+      </ul>
     </div>
-    <!-- End video sekce -->
 
-  <!-- Kontakt Section -->
-  <!-- OPRAVENO: přidáno id="kontakt" aby přesměrování po formuláři fungovalo -->
+    <hr style="margin-top:48px;">
+    <h2>Live v Unleaded cafe 2025</h2>
+
+    <!-- Přehrávač 2: Koncert -->
+    <div class="pw">
+      <div class="pw-label">▮ Dušanova kapela — live</div>
+      <div class="pw-title">Live v Unleaded cafe 2025</div>
+      <div class="pw-subtitle">Koncertní nahrávka</div>
+      <div class="pw-progress-wrap" id="p2-progwrap">
+        <div class="pw-progress-fill" id="p2-prog"></div>
+      </div>
+      <div class="pw-times"><span id="p2-cur">0:00</span><span id="p2-dur">0:00</span></div>
+      <div class="pw-controls">
+        <button class="pw-btn" id="p2-restart" title="Začátek">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+        </button>
+        <button class="pw-btn pw-play" id="p2-play" title="Přehrát / Pozastavit">
+          <svg viewBox="0 0 24 24" id="p2-icon"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="pw-volume">
+        <span class="pw-vol-icon"><svg viewBox="0 0 24 24"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg></span>
+        <input type="range" class="pw-vol-slider" min="0" max="100" value="80" id="p2-vol">
+        <span class="pw-vol-icon"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></span>
+      </div>
+    </div>
+
+  </div><!-- konec přehrávačů -->
+
+  <!-- Fotky -->
+  <div class="w3-padding-64 w3-content" id="photos">
+    <hr><h2>Fotky</h2>
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-half">
+        <img src="dusan1.jpg" style="width:100%" alt="">
+        <img src="DK_zk.jpg"  style="width:100%" alt="">
+      </div>
+      <div class="w3-half">
+        <img src="kopr2.jpg" style="width:100%" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- Video -->
+  <div class="w3-container w3-padding-16" id="video">
+    <hr><h2>Live v Unleaded cafe 2025</h2>
+    <div class="video-container" style="margin-bottom:16px;">
+      <iframe id="videoPlayer"
+              src="https://www.youtube.com/embed/BWg6EmP4nRI?rel=0"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+      </iframe>
+    </div>
+    <div id="videoGrid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-top:12px;"></div>
+  </div>
+
+  <!-- Kontakt -->
   <div class="w3-padding-64 w3-content w3-text-grey" id="kontakt">
     <h2 class="w3-text-light-grey">Kontakt</h2>
     <hr style="width:200px" class="w3-opacity">
-
     <div class="w3-section">
-       <p><i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"> </i> Email: dusan@mezi3a5.cz</p>
+      <p style="display:flex; align-items:center; gap:10px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white" style="flex-shrink:0;" aria-hidden="true">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+        Email: dusan@mezi3a5.cz
+      </p>
     </div><br>
 
     <?php
@@ -335,109 +226,193 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Lucida Console", "Courier New", monospace
     ?>
 
     <p>Napiš vzkaz:</p>
-
     <form action="send_comment.php" method="POST">
-
-      <!-- Honeypot ochrana proti botům - pole musí být vizuálně skryté přes CSS, ne type="hidden" -->
       <div style="display:none; opacity:0; visibility:hidden;">
-          <label>Nevyplňujte toto pole, pokud jste člověk:</label>
-          <input type="text" name="robot_check" value="">
+        <label>Nevyplňujte toto pole:</label>
+        <input type="text" name="robot_check" value="">
       </div>
-
-        <p><textarea class="w3-input w3-padding-16" placeholder="Zpráva pro kapelu..." required name="Message" rows="5"></textarea></p>
-        <p><input class="w3-input w3-padding-16" type="text" placeholder="Jméno" required name="Name"></p>
+      <p><textarea class="w3-input w3-padding-16" placeholder="Zpráva pro kapelu..." required name="Message" rows="5"></textarea></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Jméno" required name="Name"></p>
       <p>
         <button class="w3-button w3-light-grey w3-padding-large" type="submit">
-          <i class="fa fa-paper-plane"></i> ODESLAT
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle; margin-right:6px;" aria-hidden="true">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+          ODESLAT
         </button>
       </p>
     </form>
-
   </div>
 
-
-<!-- END PAGE CONTENT -->
-</div>
+</div><!-- konec #main -->
 
 <script>
-    const videos = [
-        { id: 'BWg6EmP4nRI', title: 'DK - Autobus' },
-        { id: 'XpCJqwfjje0', title: 'DK - Fishbelly' },
-        { id: 'zqf4TJtvRsw', title: 'DK - Kolotoč' },
-        { id: 'KSZIlw23K5s', title: 'DK - Tváře' },
-        { id: '1IGYq1520BM', title: 'DK - O dům dál' },
-        { id: 'SBz-Ofr01k4', title: 'DK - Město' },
-        { id: '7pwvNBzqQm4', title: 'DK - Sestup' },
-        { id: 'znySxPRXuBg', title: 'DK - Slunko' },
-    ];
+function fmtTime(s) {
+  if (!s || isNaN(s)) return '0:00';
+  return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+}
 
-    const grid = document.getElementById('videoGrid');
-    const player = document.getElementById('videoPlayer');
-    let activeCard = null;
+/* ===== PŘEHRÁVAČ 1 — Demo playlist ===== */
+(function () {
+  const audio   = new Audio();
+  const items   = Array.from(document.querySelectorAll('#p1-list li'));
+  const srcs    = items.map(li => li.dataset.src);
+  const names   = items.map(li => li.querySelector('span:nth-child(2)').textContent);
+  let current   = 0;
+  let repeat    = false;
 
-    const cardStyle = `
-        background: #1a1a1a;
-        border: 2px solid transparent;
-        border-radius: 6px;
-        overflow: hidden;
-        cursor: pointer;
-    `;
-    const thumbStyle = `
-        position: relative;
-        padding-bottom: 56.25%;
-        background: #000;
-        overflow: hidden;
-    `;
-    const imgStyle = `
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        object-fit: cover;
-        display: block;
-    `;
-    const overlayStyle = `
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0,0,0,0.3);
-    `;
-    const titleStyle = `
-        padding: 6px 8px 8px;
-        font-size: 12px;
-        color: #ddd;
-        line-height: 1.3;
-    `;
+  const btnPlay    = document.getElementById('p1-play');
+  const icon       = document.getElementById('p1-icon');
+  const btnPrev    = document.getElementById('p1-prev');
+  const btnNext    = document.getElementById('p1-next');
+  const btnRestart = document.getElementById('p1-restart');
+  const btnRep     = document.getElementById('p1-rep');
+  const progWrap   = document.getElementById('p1-progwrap');
+  const progFill   = document.getElementById('p1-prog');
+  const curEl      = document.getElementById('p1-cur');
+  const durEl      = document.getElementById('p1-dur');
+  const titleEl    = document.getElementById('p1-title');
+  const volSlider  = document.getElementById('p1-vol');
 
-    videos.forEach((v, i) => {
-        const card = document.createElement('div');
-        card.style.cssText = cardStyle;
-        card.innerHTML = `
-            <div style="${thumbStyle}">
-                <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="${v.title}" style="${imgStyle}">
-                <div style="${overlayStyle}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="white" opacity="0.85">
-                        <path d="M8 5v14l11-7z"/>
-                    </svg>
-                </div>
-            </div>
-            <div style="${titleStyle}">${v.title}</div>`;
+  audio.volume = volSlider.value / 100;
+  audio.src = srcs[0];
 
-        if (i === 0) {
-            card.style.border = '2px solid #2288cc';
-            activeCard = card;
-        }
-
-        card.addEventListener('click', () => {
-            if (activeCard) activeCard.style.border = '2px solid transparent';
-            card.style.border = '2px solid #2288cc';
-            activeCard = card;
-            player.src = `https://www.youtube.com/embed/${v.id}?rel=0&autoplay=1`;
-        });
-
-        grid.appendChild(card);
+  function loadTrack(i, autoplay) {
+    current = i;
+    audio.src = srcs[i];
+    titleEl.textContent = names[i];
+    progFill.style.width = '0%';
+    curEl.textContent = '0:00';
+    durEl.textContent = '0:00';
+    items.forEach((el, idx) => {
+      el.classList.toggle('pw-active-track', idx === i);
+      el.querySelector('.pw-num').textContent = idx === i ? '♪' : (idx + 1);
     });
+    if (autoplay) audio.play();
+  }
+
+  function setIcon(playing) {
+    icon.innerHTML = playing
+      ? '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'
+      : '<path d="M8 5v14l11-7z"/>';
+  }
+
+  btnPlay.addEventListener('click', () => { audio.paused ? audio.play() : audio.pause(); });
+  audio.addEventListener('play',  () => setIcon(true));
+  audio.addEventListener('pause', () => setIcon(false));
+
+  btnRestart.addEventListener('click', () => { audio.currentTime = 0; });
+  btnPrev.addEventListener('click', () => loadTrack((current - 1 + srcs.length) % srcs.length, !audio.paused));
+  btnNext.addEventListener('click', () => loadTrack((current + 1) % srcs.length, !audio.paused));
+
+  btnRep.addEventListener('click', () => {
+    repeat = !repeat;
+    btnRep.classList.toggle('pw-active', repeat);
+  });
+
+  audio.addEventListener('ended', () => {
+    if (repeat) { audio.play(); return; }
+    const next = (current + 1) % srcs.length;
+    loadTrack(next, !(next === 0));
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration) return;
+    progFill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+    curEl.textContent = fmtTime(audio.currentTime);
+  });
+
+  audio.addEventListener('loadedmetadata', () => {
+    durEl.textContent = fmtTime(audio.duration);
+    const durSpan = items[current].querySelector('.pw-dur');
+    if (durSpan) durSpan.textContent = fmtTime(audio.duration);
+  });
+
+  progWrap.addEventListener('click', (e) => {
+    if (!audio.duration) return;
+    audio.currentTime = ((e.clientX - progWrap.getBoundingClientRect().left) / progWrap.offsetWidth) * audio.duration;
+  });
+
+  volSlider.addEventListener('input', () => { audio.volume = volSlider.value / 100; });
+  items.forEach((li, i) => li.addEventListener('click', () => loadTrack(i, true)));
+})();
+
+/* ===== PŘEHRÁVAČ 2 — Live Unleaded ===== */
+(function () {
+  const audio      = new Audio('/data/koncert_unleaded/DK_S95_T1000_koncert.mp3');
+  const btnPlay    = document.getElementById('p2-play');
+  const icon       = document.getElementById('p2-icon');
+  const btnRestart = document.getElementById('p2-restart');
+  const progWrap   = document.getElementById('p2-progwrap');
+  const progFill   = document.getElementById('p2-prog');
+  const curEl      = document.getElementById('p2-cur');
+  const durEl      = document.getElementById('p2-dur');
+  const volSlider  = document.getElementById('p2-vol');
+
+  audio.volume = volSlider.value / 100;
+
+  function setIcon(playing) {
+    icon.innerHTML = playing
+      ? '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'
+      : '<path d="M8 5v14l11-7z"/>';
+  }
+
+  btnPlay.addEventListener('click', () => { audio.paused ? audio.play() : audio.pause(); });
+  audio.addEventListener('play',  () => setIcon(true));
+  audio.addEventListener('pause', () => setIcon(false));
+  btnRestart.addEventListener('click', () => { audio.currentTime = 0; });
+
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration) return;
+    progFill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+    curEl.textContent = fmtTime(audio.currentTime);
+  });
+  audio.addEventListener('loadedmetadata', () => { durEl.textContent = fmtTime(audio.duration); });
+
+  progWrap.addEventListener('click', (e) => {
+    if (!audio.duration) return;
+    audio.currentTime = ((e.clientX - progWrap.getBoundingClientRect().left) / progWrap.offsetWidth) * audio.duration;
+  });
+  volSlider.addEventListener('input', () => { audio.volume = volSlider.value / 100; });
+})();
+
+/* ===== VIDEO MŘÍŽKA ===== */
+(function () {
+  const videos = [
+    { id: 'BWg6EmP4nRI', title: 'DK — Autobus' },
+    { id: 'XpCJqwfjje0', title: 'DK — Fishbelly' },
+    { id: 'zqf4TJtvRsw', title: 'DK — Kolotoč' },
+    { id: 'KSZIlw23K5s', title: 'DK — Tváře' },
+    { id: '1IGYq1520BM', title: 'DK — O dům dál' },
+    { id: 'SBz-Ofr01k4', title: 'DK — Město' },
+    { id: '7pwvNBzqQm4', title: 'DK — Sestup' },
+    { id: 'znySxPRXuBg', title: 'DK — Slunko' },
+  ];
+  const grid   = document.getElementById('videoGrid');
+  const player = document.getElementById('videoPlayer');
+  let activeCard = null;
+
+  videos.forEach((v, i) => {
+    const card = document.createElement('div');
+    card.style.cssText = 'background:#1a1a1a;border:2px solid transparent;border-radius:6px;overflow:hidden;cursor:pointer;';
+    card.innerHTML =
+      '<div style="position:relative;padding-bottom:56.25%;background:#000;overflow:hidden;">' +
+        '<img src="https://img.youtube.com/vi/' + v.id + '/mqdefault.jpg" alt="' + v.title + '" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">' +
+        '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="white" opacity="0.85"><path d="M8 5v14l11-7z"/></svg>' +
+        '</div></div>' +
+      '<div style="padding:6px 8px 8px;font-size:12px;color:#ddd;line-height:1.3;">' + v.title + '</div>';
+
+    if (i === 0) { card.style.border = '2px solid #2288cc'; activeCard = card; }
+    card.addEventListener('click', () => {
+      if (activeCard) activeCard.style.border = '2px solid transparent';
+      card.style.border = '2px solid #2288cc';
+      activeCard = card;
+      player.src = 'https://www.youtube.com/embed/' + v.id + '?rel=0&autoplay=1';
+    });
+    grid.appendChild(card);
+  });
+})();
 </script>
 </body>
 </html>
