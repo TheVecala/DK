@@ -35,38 +35,38 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 }
 
 /* ===== AUDIO PŘEHRÁVAČ ===== */
-.pw { background:#2e1f0a; border:1px solid #7a5520; border-radius:8px; padding:20px; font-family:"Courier New",monospace; box-sizing:border-box; max-width:480px; margin:0 auto; }
-.pw-label { font-size:12px; color:#a07840; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
-.pw-title { font-size:17px; color:#f0d890; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.pw-subtitle { font-size:13px; color:#a07840; margin-bottom:14px; }
-.pw-progress-wrap { position:relative; height:6px; background:#4a3010; cursor:pointer; margin-bottom:6px; }
-.pw-progress-fill { height:100%; background:#c8962a; width:0%; pointer-events:none; }
-.pw-times { display:flex; justify-content:space-between; font-size:13px; color:#a07840; margin-bottom:14px; }
+.pw { background:#111; border:1px solid #333; border-radius:8px; padding:20px; font-family:"Courier New",monospace; box-sizing:border-box; max-width:480px; margin:0 auto; }
+.pw-label { font-size:12px; color:#555; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
+.pw-title { font-size:17px; color:#eee; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pw-subtitle { font-size:13px; color:#555; margin-bottom:14px; }
+.pw-progress-wrap { position:relative; height:5px; background:#222; cursor:pointer; margin-bottom:6px; }
+.pw-progress-fill { height:100%; background:#eee; width:0%; pointer-events:none; }
+.pw-times { display:flex; justify-content:space-between; font-size:13px; color:#555; margin-bottom:14px; }
 .pw-controls-row { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
 .pw-controls { display:flex; align-items:center; justify-content:center; gap:6px; flex-shrink:0; }
-.pw-btn { background:transparent; border:1px solid #7a5520; color:#c8962a; border-radius:4px; width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; transition:background .15s,border-color .15s; }
-.pw-btn:hover { background:#4a3010; border-color:#c8962a; }
-.pw-btn.pw-play { width:48px; height:48px; border-color:#c8962a; }
-.pw-btn.pw-active { background:#4a3010; border-color:#c8962a; color:#f0d890; }
+.pw-btn { background:transparent; border:1px solid #333; color:#aaa; border-radius:4px; width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; transition:background .15s,border-color .15s; }
+.pw-btn:hover { background:#222; border-color:#aaa; color:#eee; }
+.pw-btn.pw-play { width:48px; height:48px; border-color:#aaa; color:#eee; }
+.pw-btn.pw-active { background:#222; border-color:#eee; color:#eee; }
 .pw-btn svg { width:20px; height:20px; fill:currentColor; flex-shrink:0; }
 .pw-btn.pw-play svg { width:24px; height:24px; }
 .pw-volume { display:flex; align-items:center; gap:8px; flex:1; min-width:0; }
-.pw-vol-icon { color:#a07840; display:flex; flex-shrink:0; }
-.pw-vol-icon svg { width:18px; height:18px; fill:#a07840; }
-.pw-vol-slider { flex:1; min-width:0; -webkit-appearance:none; appearance:none; height:4px; background:#4a3010; outline:none; cursor:pointer; }
-.pw-vol-slider::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:#c8962a; cursor:pointer; }
-.pw-vol-slider::-moz-range-thumb { width:14px; height:14px; border-radius:50%; background:#c8962a; cursor:pointer; border:none; }
-.pw-divider { border:none; border-top:1px solid #4a3010; margin:0 0 12px; }
+.pw-vol-icon { display:flex; flex-shrink:0; }
+.pw-vol-icon svg { width:18px; height:18px; fill:#555; }
+.pw-vol-slider { flex:1; min-width:0; -webkit-appearance:none; appearance:none; height:4px; background:#222; outline:none; cursor:pointer; }
+.pw-vol-slider::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:#aaa; cursor:pointer; }
+.pw-vol-slider::-moz-range-thumb { width:14px; height:14px; border-radius:50%; background:#aaa; cursor:pointer; border:none; }
+.pw-divider { border:none; border-top:1px solid #222; margin:0 0 12px; }
 .pw-playlist { list-style:none; margin:0; padding:0; }
 @media (max-width:600px) {
   .pw-playlist { max-height:400px; overflow-y:auto; }
   .pw-playlist::-webkit-scrollbar { width:4px; }
-  .pw-playlist::-webkit-scrollbar-track { background:#2e1f0a; }
-  .pw-playlist::-webkit-scrollbar-thumb { background:#7a5520; border-radius:2px; }
+  .pw-playlist::-webkit-scrollbar-track { background:#111; }
+  .pw-playlist::-webkit-scrollbar-thumb { background:#333; border-radius:2px; }
 }
-.pw-playlist li { display:flex; align-items:center; gap:10px; padding:8px 6px; cursor:pointer; border-radius:3px; font-size:14px; color:#a07840; transition:background .1s; }
-.pw-playlist li:hover { background:#4a3010; color:#f0d890; }
-.pw-playlist li.pw-active-track { color:#f0d890; background:#4a3010; }
+.pw-playlist li { display:flex; align-items:center; gap:10px; padding:8px 6px; cursor:pointer; border-radius:3px; font-size:14px; color:#555; transition:background .1s; }
+.pw-playlist li:hover { background:#1a1a1a; color:#eee; }
+.pw-playlist li.pw-active-track { color:#eee; background:#1a1a1a; }
 .pw-playlist li .pw-num { min-width:18px; text-align:right; flex-shrink:0; }
 .pw-playlist li .pw-dur { margin-left:auto; flex-shrink:0; }
 </style>
