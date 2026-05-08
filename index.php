@@ -76,10 +76,10 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 <!-- Sidebar -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
   <img src="dk_logo.jpg" style="width:100%" alt="DK logo">
-  <a href="#"       class="w3-bar-item w3-button w3-padding-large w3-black"><img src="singer.png" width="50" height="50" alt=""><p>HOME</p></a>
-  <a href="#about"  class="w3-bar-item w3-button w3-padding-large w3-hover-black"><img src="kytarista.png" width="50" height="50" alt=""><p>NAHRÁVKY</p></a>
-  <a href="#video"  class="w3-bar-item w3-button w3-padding-large w3-hover-black"><img src="kytarista.png" width="50" height="50" alt=""><p>VIDEO</p></a>
-  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black"><img src="singer.png" width="50" height="50" alt=""><p>FOTKY</p></a>
+  <a href="#home"   class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-home"><img src="singer.png" width="50" height="50" alt=""><p>HOME</p></a>
+  <a href="#about"  class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-about"><img src="kytarista.png" width="50" height="50" alt=""><p>NAHRÁVKY</p></a>
+  <a href="#video"  class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-video"><img src="kytarista.png" width="50" height="50" alt=""><p>VIDEO</p></a>
+  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-photos"><img src="singer.png" width="50" height="50" alt=""><p>FOTKY</p></a>
 </nav>
 
 <!-- Navbar na mobilu -->
@@ -383,7 +383,38 @@ function fmtTime(s) {
   volSlider.addEventListener('input', () => { audio.volume = volSlider.value / 100; });
 })();
 
-/* ===== VIDEO MŘÍŽKA ===== */
+/* ===== AKTIVNÍ ODKAZ V SIDEBARU ===== */
+(function () {
+  const sections = ['home', 'about', 'video', 'photos'];
+  const links = {};
+  sections.forEach(id => { links[id] = document.getElementById('nav-' + id); });
+
+  function setActive(id) {
+    sections.forEach(s => {
+      if (!links[s]) return;
+      links[s].classList.toggle('w3-black', s === id);
+    });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { threshold: 0.25 });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  /* Okamžité zvýraznění při kliknutí */
+  sections.forEach(id => {
+    if (!links[id]) return;
+    links[id].addEventListener('click', () => setActive(id));
+  });
+
+  setActive('home');
+})();
 (function () {
   const videos = [
     { id: 'BWg6EmP4nRI', title: 'DK — Autobus' },
