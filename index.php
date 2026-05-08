@@ -185,7 +185,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
     <h2>Video — Live v Unleaded cafe 2025</h2>
     <div class="video-container" style="margin-bottom:16px;">
       <iframe id="videoPlayer"
-              src="https://www.youtube.com/embed/BWg6EmP4nRI?rel=0"
+              src="https://www.youtube-nocookie.com/embed/BWg6EmP4nRI?rel=0&modestbranding=1&iv_load_policy=3"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen>
@@ -415,7 +415,7 @@ function fmtTime(s) {
       if (activeCard) activeCard.style.border = '2px solid transparent';
       card.style.border = '2px solid #2288cc';
       activeCard = card;
-      player.src = 'https://www.youtube.com/embed/' + v.id + '?rel=0&autoplay=1';
+      player.src = 'https://www.youtube-nocookie.com/embed/' + v.id + '?rel=0&autoplay=1&modestbranding=1&iv_load_policy=3';
     });
     grid.appendChild(card);
   });
