@@ -115,7 +115,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
   <!-- Header -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
     <h1 class="w3-jumbo">Dušanova kapela</h1>
-    <img src="kapela1.jpeg" alt="Dušanova kapela" class="w3-image" width="992" height="1108">
+    <img src="kapela1.jpeg" alt="Dušanova kapela" class="w3-image" width="992" height="1108" style="border-radius:250px;">
     <p>Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.</p>
   </header>
 
