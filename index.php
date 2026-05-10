@@ -35,7 +35,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 }
 
 /* ===== AUDIO PŘEHRÁVAČ ===== */
-.pw { background:#111; border:1px solid #333; border-radius:8px; padding:20px; font-family:"Courier New",monospace; box-sizing:border-box; max-width:480px; margin:0 auto; }
+.pw { background:#111; border:1px solid #333; border-radius:8px; padding:20px; font-family:"Courier New",monospace; box-sizing:border-box; max-width:480px; }
 .pw-label { font-size:12px; color:#555; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
 .pw-title { font-size:17px; color:#eee; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .pw-subtitle { font-size:13px; color:#555; margin-bottom:14px; }
@@ -122,13 +122,14 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
   <!-- Přehrávače -->
   <div class="page-section" id="about">
 
-    <h2>Nahrávky — Demo</h2>
+    <div style="max-width:480px; margin:0 auto;">
+    <h2>Demo</h2>
 
     <!-- Přehrávač 1: Demo playlist -->
     <div class="pw">
-      <div class="pw-label">▮ Dušanova kapela — demo</div>
+      <!--<div class="pw-label">▮ Dušanova kapela — demo</div>-->
       <div class="pw-title" id="p1-title">DK — Autobus</div>
-      <div class="pw-subtitle">Demo nahrávka</div>
+      <!--<div class="pw-subtitle">Demo nahrávka</div>-->
       <div class="pw-progress-wrap" id="p1-progwrap">
         <div class="pw-progress-fill" id="p1-prog"></div>
       </div>
@@ -172,13 +173,13 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
       </ul>
     </div>
 
-    <h2 style="margin-top:40px;">Nahrávky — Live v Unleaded cafe 2025</h2>
+    <h2 style="margin-top:40px;">Live v Unleaded cafe 2025</h2>
 
     <!-- Přehrávač 2: Koncert -->
     <div class="pw">
-      <div class="pw-label">▮ Dušanova kapela — live</div>
+     <!-- <div class="pw-label">▮ Dušanova kapela — live</div>-->
       <div class="pw-title">Live v Unleaded cafe 2025</div>
-      <div class="pw-subtitle">Koncertní nahrávka</div>
+      <!--<div class="pw-subtitle">Koncertní nahrávka</div>-->
       <div class="pw-progress-wrap" id="p2-progwrap">
         <div class="pw-progress-fill" id="p2-prog"></div>
       </div>
@@ -200,9 +201,10 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
           </div>
         </div>
       </div>
-    </div>
+    </div><!-- konec přehrávačů -->
+    </div><!-- konec wrapperu 480px -->
 
-  </div><!-- konec přehrávačů -->
+  </div><!-- konec page-section -->
 
   <!-- Video -->
   <div class="page-section" id="video">
