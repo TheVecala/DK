@@ -56,6 +56,24 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 .pw-vol-slider { flex:1; min-width:0; -webkit-appearance:none; appearance:none; height:4px; background:#222; outline:none; cursor:pointer; }
 .pw-vol-slider::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:#aaa; cursor:pointer; }
 .pw-vol-slider::-moz-range-thumb { width:14px; height:14px; border-radius:50%; background:#aaa; cursor:pointer; border:none; }
+
+/* Hlasitost pod tlačítky — přehrávač 1 */
+.pw-volume-below { display:flex; align-items:center; gap:8px; width:60%; margin-bottom:16px; }
+.pw-vol-wrap { position:relative; flex:1; display:flex; align-items:center; height:20px; }
+.pw-vol-track-bg {
+  position:absolute; left:0; right:0;
+  height:14px;
+  background: linear-gradient(to right, #2a2a2a, #666);
+  clip-path: polygon(0 44%, 100% 10%, 100% 90%, 0 56%);
+  pointer-events:none;
+  border-radius:0 3px 3px 0;
+}
+.pw-vol-wrap .pw-vol-slider {
+  position:relative; z-index:1;
+  width:100%; background:transparent;
+}
+.pw-vol-wrap .pw-vol-slider::-webkit-slider-thumb { background:#ccc; width:16px; height:16px; }
+.pw-vol-wrap .pw-vol-slider::-moz-range-thumb { background:#ccc; width:16px; height:16px; }
 .pw-divider { border:none; border-top:1px solid #222; margin:0 0 12px; }
 .pw-playlist { list-style:none; margin:0; padding:0; }
 @media (max-width:600px) {
@@ -133,8 +151,11 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
             <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
           </button>
         </div>
-        <div class="pw-volume">
-          <span class="pw-vol-icon"><svg viewBox="0 0 24 24"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg></span>
+      </div>
+      <div class="pw-volume-below">
+        <span class="pw-vol-icon"><svg viewBox="0 0 24 24"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg></span>
+        <div class="pw-vol-wrap">
+          <div class="pw-vol-track-bg"></div>
           <input type="range" class="pw-vol-slider" min="0" max="100" value="80" id="p1-vol">
         </div>
       </div>
@@ -173,7 +194,10 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
         </div>
         <div class="pw-volume">
           <span class="pw-vol-icon"><svg viewBox="0 0 24 24"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg></span>
-          <input type="range" class="pw-vol-slider" min="0" max="100" value="80" id="p2-vol">
+          <div class="pw-vol-wrap">
+            <div class="pw-vol-track-bg"></div>
+            <input type="range" class="pw-vol-slider" min="0" max="100" value="80" id="p2-vol">
+          </div>
         </div>
       </div>
     </div>
