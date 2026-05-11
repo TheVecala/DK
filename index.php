@@ -102,21 +102,27 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 
 <!-- Navbar na mobilu -->
 <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#"       class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about"  class="w3-bar-item w3-button" style="width:25% !important">NAHRÁVKY</a>
-    <a href="#video"  class="w3-bar-item w3-button" style="width:25% !important">VIDEO</a>
-    <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">FOTKY</a>
+  <style>
+    .mob-link { display:inline-block; width:25%; color:#888; font-family:Arial,sans-serif; font-size:13px; letter-spacing:1px; padding:15px 0; text-transform:uppercase; text-align:center; text-decoration:none; background:#111; border-bottom:1px solid #333; box-sizing:border-box; transition:background .15s,color .15s; }
+    .mob-link:hover { background:#222; color:#eee; }
+    .mob-link.mob-active { background:#000; color:#fff; }
+  </style>
+  <div style="display:flex; border-bottom:1px solid #333;">
+    <a href="#home"   class="mob-link mob-active" id="mob-home">Home</a>
+    <a href="#about"  class="mob-link" id="mob-about">Demo</a>
+    <a href="#video"  class="mob-link" id="mob-video">Video</a>
+    <a href="#photos" class="mob-link" id="mob-photos">Fotky</a>
   </div>
 </div>
 
 <div class="w3-padding-large" id="main">
 
   <!-- Header -->
-  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+  <header class="w3-container w3-center w3-black" id="home" style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 16px; box-sizing:border-box;">
     <h1 class="w3-jumbo">Dušanova kapela</h1>
-    <img src="kapela1.jpeg" alt="Dušanova kapela" class="w3-image" width="992" height="1108" style="border-radius:250px;">
-    <p>Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.</p>
+    <img src="kapela1.jpeg" alt="Dušanova kapela" class="w3-image"
+         style="border-radius:250px; max-height:65vh; width:auto; max-width:100%;">
+    <p style="max-width:600px; margin-top:24px;">Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.</p>
   </header>
 
   <!-- Přehrávače -->
@@ -413,12 +419,16 @@ function fmtTime(s) {
 (function () {
   const sections = ['home', 'about', 'video', 'photos'];
   const links = {};
-  sections.forEach(id => { links[id] = document.getElementById('nav-' + id); });
+  const mobLinks = {};
+  sections.forEach(id => {
+    links[id] = document.getElementById('nav-' + id);
+    mobLinks[id] = document.getElementById('mob-' + id);
+  });
 
   function setActive(id) {
     sections.forEach(s => {
-      if (!links[s]) return;
-      links[s].classList.toggle('w3-black', s === id);
+      if (links[s])    links[s].classList.toggle('w3-black', s === id);
+      if (mobLinks[s]) mobLinks[s].classList.toggle('mob-active', s === id);
     });
   }
 
@@ -433,10 +443,10 @@ function fmtTime(s) {
     if (el) observer.observe(el);
   });
 
-  /* Okamžité zvýraznění při kliknutí */
+  /* Okamžité zvýraznění při kliknutí — desktop i mobil */
   sections.forEach(id => {
-    if (!links[id]) return;
-    links[id].addEventListener('click', () => setActive(id));
+    if (links[id])    links[id].addEventListener('click', () => setActive(id));
+    if (mobLinks[id]) mobLinks[id].addEventListener('click', () => setActive(id));
   });
 
   setActive('home');
