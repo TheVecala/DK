@@ -168,7 +168,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
       </div>
       <hr class="pw-divider">
       <ul class="pw-playlist" id="p1-list">
-        <li data-src="/data/mp3_mix1/mix_bus_14_4.mp3"       class="pw-active-track"><span class="pw-num">♪</span><span>DK — Autobus</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_bus_14_4.mp3"       class="pw-active-track"><span class="pw-num"><img src="icons8-rock-music-50.png" alt="▶" style="width:16px;height:16px;vertical-align:middle;filter:invert(1);"></span><span>DK — Autobus</span><span class="pw-dur"></span></li>
         <li data-src="/data/mp3_mix1/mix_fish_30.mp3"        ><span class="pw-num">2</span><span>DK — Fishbelly</span><span class="pw-dur"></span></li>
         <li data-src="/data/mp3_mix1/mix_dum_18_1.mp3"       ><span class="pw-num">3</span><span>DK — O dům dál</span><span class="pw-dur"></span></li>
         <li data-src="/data/mp3_mix1/mix_kolotoc_16.mp3"     ><span class="pw-num">4</span><span>DK — Kolotoč</span><span class="pw-dur"></span></li>
@@ -325,7 +325,12 @@ function fmtTime(s) {
     durEl.textContent = '0:00';
     items.forEach((el, idx) => {
       el.classList.toggle('pw-active-track', idx === i);
-      el.querySelector('.pw-num').textContent = idx === i ? '♪' : (idx + 1);
+      const num = el.querySelector('.pw-num');
+      if (idx === i) {
+        num.innerHTML = '<img src="icons8-rock-music-50.png" alt="▶" style="width:16px;height:16px;vertical-align:middle;filter:invert(1);">';
+      } else {
+        num.textContent = idx + 1;
+      }
     });
     if (autoplay) audio.play();
   }
