@@ -95,8 +95,8 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
   <img src="dk_logo.jpg" style="width:100%" alt="DK logo">
   <a href="#home"   class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-home"><img src="singer.png" width="50" height="50" alt=""><p>HOME</p></a>
-  <a href="#about"  class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-about"><img src="kytarista.png" width="50" height="50" alt=""><p>NAHRÁVKY</p></a>
-  <a href="#video"  class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-video"><img src="kytarista.png" width="50" height="50" alt=""><p>VIDEO</p></a>
+  <a href="#about"  class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-about"><img src="icons8-radio-64_2.png" width="70" height="70" alt=""><p>DEMO</p></a>
+  <a href="#video"  class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-video"><img src="kytarista.png" width="50" height="50" alt=""><p>LIVE</p></a>
   <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-photos"><img src="singer.png" width="50" height="50" alt=""><p>FOTKY</p></a>
 </nav>
 
@@ -110,7 +110,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
   <div style="display:flex; border-bottom:1px solid #333;">
     <a href="#home"   class="mob-link mob-active" id="mob-home">Home</a>
     <a href="#about"  class="mob-link" id="mob-about">Demo</a>
-    <a href="#video"  class="mob-link" id="mob-video">Video</a>
+    <a href="#video"  class="mob-link" id="mob-video">Live</a>
     <a href="#photos" class="mob-link" id="mob-photos">Fotky</a>
   </div>
 </div>
@@ -133,7 +133,10 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 
     <!-- Přehrávač 1: Demo playlist -->
     <div class="pw">
-      <!--<div class="pw-label">▮ Dušanova kapela — demo</div>-->
+      <div class="pw-label" style="display:flex; align-items:center; gap:8px;">
+        <img src="icons8-radio-64_2.png" alt="" style="width:26px; height:26px; opacity:0.65;">
+        <span>Dušanova kapela — demo</span>
+      </div>
       <div class="pw-title" id="p1-title">DK — Autobus</div>
       <!--<div class="pw-subtitle">Demo nahrávka</div>-->
       <div class="pw-progress-wrap" id="p1-progwrap">
@@ -179,35 +182,6 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
       </ul>
     </div>
 
-    <h2 style="margin-top:40px;">Live v Unleaded cafe 2025</h2>
-
-    <!-- Přehrávač 2: Koncert -->
-    <div class="pw">
-     <!-- <div class="pw-label">▮ Dušanova kapela — live</div>-->
-      <div class="pw-title">Live v Unleaded cafe 2025</div>
-      <!--<div class="pw-subtitle">Koncertní nahrávka</div>-->
-      <div class="pw-progress-wrap" id="p2-progwrap">
-        <div class="pw-progress-fill" id="p2-prog"></div>
-      </div>
-      <div class="pw-times"><span id="p2-cur">0:00</span><span id="p2-dur">0:00</span></div>
-      <div class="pw-controls-row">
-        <div class="pw-controls">
-          <button class="pw-btn" id="p2-restart" title="Začátek">
-            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
-          </button>
-          <button class="pw-btn pw-play" id="p2-play" title="Přehrát / Pozastavit">
-            <svg viewBox="0 0 24 24" id="p2-icon"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-        </div>
-        <div class="pw-volume">
-          <span class="pw-vol-icon"><svg viewBox="0 0 24 24"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg></span>
-          <div class="pw-vol-wrap">
-            <div class="pw-vol-track-bg"></div>
-            <input type="range" class="pw-vol-slider" min="0" max="100" value="80" id="p2-vol">
-          </div>
-        </div>
-      </div>
-    </div><!-- konec přehrávačů -->
     </div><!-- konec wrapperu 480px -->
 
   </div><!-- konec page-section -->
@@ -224,6 +198,35 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
       </iframe>
     </div>
     <div id="videoGrid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-top:12px;"></div>
+
+    <!-- Přehrávač 2: Koncert — zvukový záznam -->
+    <div style="max-width:480px; margin:40px auto 0;">
+      <div class="pw">
+        <div class="pw-subtitle" style="margin-bottom:10px;">Zvukový záznam celého koncertu</div>
+        <div class="pw-title">Live v Unleaded cafe 2025</div>
+        <div class="pw-progress-wrap" id="p2-progwrap" style="margin-top:12px;">
+          <div class="pw-progress-fill" id="p2-prog"></div>
+        </div>
+        <div class="pw-times"><span id="p2-cur">0:00</span><span id="p2-dur">0:00</span></div>
+        <div class="pw-controls-row">
+          <div class="pw-controls">
+            <button class="pw-btn" id="p2-restart" title="Začátek">
+              <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+            </button>
+            <button class="pw-btn pw-play" id="p2-play" title="Přehrát / Pozastavit">
+              <svg viewBox="0 0 24 24" id="p2-icon"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+          <div class="pw-volume">
+            <span class="pw-vol-icon"><svg viewBox="0 0 24 24"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg></span>
+            <div class="pw-vol-wrap">
+              <div class="pw-vol-track-bg"></div>
+              <input type="range" class="pw-vol-slider" min="0" max="100" value="80" id="p2-vol">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Fotky -->
