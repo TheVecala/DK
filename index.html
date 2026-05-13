@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dušanova kapela - Již brzy</title>
     <style>
-        /* Import retro pixel fontu */
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
         body, html {
@@ -13,7 +12,6 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            /* Absolutní černá pro maximální kontrast */
             background-color: #000000;
             font-family: 'Press Start 2P', cursive;
             display: flex;
@@ -24,41 +22,42 @@
             color: #ffffff;
         }
 
-        /* Fixní text uprostřed */
+        /* Středový box */
         #container {
             text-align: center;
-            z-index: 10; /* Nad hadem */
+            z-index: 10;
             pointer-events: none;
-            /* Poloprůhledné pozadí pod textem pro lepší čitelnost, když had projíždí za ním */
-            background: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #333; /* Jemný rámeček */
+            background: rgba(0, 0, 0, 0.85);
+            padding: 40px;
+            border-radius: 20px;
+            border: 3px solid #00ff41;
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.2);
         }
 
         h1 {
-            font-size: 2rem;
-            margin: 0 0 15px 0;
+            font-size: 2.2rem;
+            margin: 0 0 25px 0;
             color: #fff;
-            text-shadow: 0 0 10px #fff; /* Bílá záře */
-            letter-spacing: 2px;
+            text-shadow: 0 0 12px #fff;
+            letter-spacing: 3px;
         }
 
-        p {
-            font-size: 0.8rem;
-            color: #aaaaaa; /* Šedá pro podnadpis */
-            margin: 0;
+        /* Ikona bez jakékoli záře */
+        .status-icon {
+            width: 120px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            /* Filter byl odstraněn */
         }
 
-        /* Plátno s hadem */
         canvas {
             position: absolute;
             top: 0;
             left: 0;
-            z-index: 1; /* Pod fixním textem */
+            z-index: 1;
         }
 
-        /* Velmi jemný CRT efekt (skenovacích linek), ztlumený pro čitelnost */
         .overlay {
             position: fixed;
             top: 0;
@@ -67,9 +66,9 @@
             height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
             background-size: 100% 4px;
-            z-index: 20; /* Úplně nahoře */
+            z-index: 20;
             pointer-events: none;
-            opacity: 0.5;
+            opacity: 0.4;
         }
     </style>
 </head>
@@ -79,7 +78,7 @@
 
     <div id="container">
         <h1>JIŽ BRZY</h1>
-        <p>DUŠANOVA KAPELA LADÍ NÁSTROJE...</p>
+        <img src="music.png" alt="Kapela odpočívá" class="status-icon">
     </div>
 
     <canvas id="snakeCanvas"></canvas>
@@ -88,7 +87,6 @@
         const canvas = document.getElementById('snakeCanvas');
         const ctx = canvas.getContext('2d');
 
-        // Nastavení velikosti plátna na celou obrazovku
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -98,78 +96,53 @@
 
         const text = "DUŠANOVA KAPELA";
         const letters = text.split("");
-        const spacing = 28; // Mezera mezi písmeny
-        const speed = 2.5; // Rychlost pohybu
+        const spacing = 30; 
+        const speed = 2.8; 
         
-        // Inicializace hada uprostřed obrazovky
         let snake = [];
         const startX = canvas.width / 2;
         const startY = canvas.height / 2;
 
         for(let i = 0; i < letters.length; i++) {
-            // Písmena startují za sebou
             snake.push({ x: startX - (i * spacing), y: startY });
         }
 
-        // Úhly pohybu (v radiánech)
-        let angle = Math.random() * Math.PI * 2; // Náhodný startovní směr
+        let angle = Math.random() * Math.PI * 2;
         let targetAngle = angle;
 
         function update() {
-            // Vytvoříme novou pozici hlavy
             const head = { ...snake[0] };
 
-            // Inteligentní náhodné zatáčení
             if (Math.random() < 0.02) {
-                // Změna cílového úhlu o +/- 1 radián
                 targetAngle += (Math.random() - 0.5) * 2;
             }
             
-            // Plynulé otáčení k cílovému úhlu
             angle += (targetAngle - angle) * 0.1;
 
-            // Výpočet nové pozice hlavy na základě úhlu a rychlosti
             head.x += Math.cos(angle) * speed;
             head.y += Math.sin(angle) * speed;
 
-            // --- Fyzika odrazu od stěn ---
-            const padding = 30; // Jak blízko ke zdi může jít
+            const padding = 40; 
             let hitWall = false;
 
-            if (head.x < padding) { 
-                targetAngle = 0; // Otočit doprava (0 rad)
-                hitWall = true;
-            } else if (head.x > canvas.width - padding) {
-                targetAngle = Math.PI; // Otočit doleva (pi rad)
-                hitWall = true;
-            }
+            if (head.x < padding) { targetAngle = 0; hitWall = true; }
+            else if (head.x > canvas.width - padding) { targetAngle = Math.PI; hitWall = true; }
 
-            if (head.y < padding) {
-                targetAngle = Math.PI / 2; // Otočit dolů (pi/2 rad)
-                hitWall = true;
-            } else if (head.y > canvas.height - padding) {
-                targetAngle = -Math.PI / 2; // Otočit nahoru (-pi/2 rad)
-                hitWall = true;
-            }
+            if (head.y < padding) { targetAngle = Math.PI / 2; hitWall = true; }
+            else if (head.y > canvas.height - padding) { targetAngle = -Math.PI / 2; hitWall = true; }
 
-            // Pokud narazí, okamžitě srovnáme úhel, aby se "nezařezával" do zdi
             if (hitWall) angle = targetAngle;
 
-            // Logika následování článků těla
-            let newSnake = [head]; // Hlava je na nové pozici
-            
+            let newSnake = [head];
             for (let i = 1; i < snake.length; i++) {
-                const prev = newSnake[i-1]; // Článek před ním (už pohnutý)
-                const curr = snake[i];     // Aktuální článek
-                
+                const prev = newSnake[i-1];
+                const curr = snake[i];
                 const dx = prev.x - curr.x;
                 const dy = prev.y - curr.y;
                 const distance = Math.sqrt(dx*dx + dy*dy);
                 
-                // Pokud je článek dál než má být, přitáhneme ho
                 if (distance > spacing) {
                     const angleToPrev = Math.atan2(dy, dx);
-                    // Vypočítáme novou pozici článku tak, aby byl přesně 'spacing' daleko od předchozího
                     curr.x = prev.x - Math.cos(angleToPrev) * spacing;
                     curr.y = prev.y - Math.sin(angleToPrev) * spacing;
                 }
@@ -179,50 +152,38 @@
         }
 
         function draw() {
-            // Částečné mazání plátna (vytváří efekt stopa za pohybem)
-            // rgba(0,0,0, 0.3) - ta 0.3 určuje jak rychle stopa mizí
             ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Nastavení fontu pro canvas
             ctx.font = '24px "Press Start 2P"';
             ctx.textBaseline = 'middle';
             ctx.textAlign = 'center';
             
-            // Nastavení záře (Neon efekt) pro CELÉHO hada
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = '#00ff00'; // Jasně zelená záře
-
-            // Vykreslení písmen (procházíme pole odzadu, aby hlava byla vykreslena jako poslední nahoře)
             for (let i = snake.length - 1; i >= 0; i--) {
                 const char = letters[i];
                 const pos = snake[i];
                 
                 if (i === 0) {
-                    // Hlava svítí nejvíc (čistě bílá s neonovou září)
                     ctx.fillStyle = '#ffffff';
                     ctx.shadowBlur = 20; 
+                    ctx.shadowColor = '#00ff41';
                 } else {
-                    // Tělo je jasně zelené (matrix zelená) a svítí
                     ctx.fillStyle = '#00ff41'; 
                     ctx.shadowBlur = 10;
+                    ctx.shadowColor = '#00ff41';
                 }
                 
                 ctx.fillText(char, pos.x, pos.y);
             }
-            
-            // Reset stínů pro jistotu (pro další kreslící operace, pokud by nějaké byly)
             ctx.shadowBlur = 0;
         }
 
-        // Hlavní smyčka animace
         function loop() {
             update();
             draw();
             requestAnimationFrame(loop);
         }
 
-        // Start
         loop();
     </script>
 </body>
