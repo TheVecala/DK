@@ -36,26 +36,26 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 
 /* ===== AUDIO PŘEHRÁVAČ ===== */
 .pw { background:#111; border:1px solid #333; border-radius:8px; padding:20px; font-family:"Courier New",monospace; box-sizing:border-box; max-width:480px; }
-.pw-label { font-size:12px; color:#555; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
-.pw-title { font-size:17px; color:#eee; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.pw-subtitle { font-size:13px; color:#555; margin-bottom:14px; }
-.pw-progress-wrap { position:relative; height:5px; background:#222; cursor:pointer; margin-bottom:6px; }
-.pw-progress-fill { height:100%; background:#eee; width:0%; pointer-events:none; }
-.pw-times { display:flex; justify-content:space-between; font-size:13px; color:#555; margin-bottom:14px; }
+.pw-label { font-size:12px; color:#888; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
+.pw-title { font-size:17px; color:#fff; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pw-subtitle { font-size:13px; color:#888; margin-bottom:14px; }
+.pw-progress-wrap { position:relative; height:5px; background:#333; cursor:pointer; margin-bottom:6px; }
+.pw-progress-fill { height:100%; background:#ddd; width:0%; pointer-events:none; }
+.pw-times { display:flex; justify-content:space-between; font-size:13px; color:#888; margin-bottom:14px; }
 .pw-controls-row { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
 .pw-controls { display:flex; align-items:center; justify-content:center; gap:6px; flex-shrink:0; }
-.pw-btn { background:transparent; border:1px solid #333; color:#aaa; border-radius:4px; width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; transition:background .15s,border-color .15s; }
-.pw-btn:hover { background:#222; border-color:#aaa; color:#eee; }
-.pw-btn.pw-play { width:48px; height:48px; border-color:#aaa; color:#eee; }
-.pw-btn.pw-active { background:#222; border-color:#eee; color:#eee; }
+.pw-btn { background:transparent; border:1px solid #444; color:#bbb; border-radius:4px; width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; transition:background .15s,border-color .15s; }
+.pw-btn:hover { background:#222; border-color:#bbb; color:#fff; }
+.pw-btn.pw-play { width:48px; height:48px; border-color:#ccc; color:#fff; }
+.pw-btn.pw-active { background:#222; border-color:#fff; color:#fff; }
 .pw-btn svg { width:20px; height:20px; fill:currentColor; flex-shrink:0; }
 .pw-btn.pw-play svg { width:24px; height:24px; }
 .pw-volume { display:flex; align-items:center; gap:8px; flex:1; min-width:0; }
 .pw-vol-icon { display:flex; flex-shrink:0; }
-.pw-vol-icon svg { width:18px; height:18px; fill:#555; }
-.pw-vol-slider { flex:1; min-width:0; -webkit-appearance:none; appearance:none; height:4px; background:#222; outline:none; cursor:pointer; }
-.pw-vol-slider::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:#aaa; cursor:pointer; }
-.pw-vol-slider::-moz-range-thumb { width:14px; height:14px; border-radius:50%; background:#aaa; cursor:pointer; border:none; }
+.pw-vol-icon svg { width:18px; height:18px; fill:#888; }
+.pw-vol-slider { flex:1; min-width:0; -webkit-appearance:none; appearance:none; height:4px; background:#333; outline:none; cursor:pointer; }
+.pw-vol-slider::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:#bbb; cursor:pointer; }
+.pw-vol-slider::-moz-range-thumb { width:14px; height:14px; border-radius:50%; background:#bbb; cursor:pointer; border:none; }
 
 /* Hlasitost pod tlačítky — přehrávač 1 */
 .pw-volume-below { display:flex; align-items:center; gap:8px; width:60%; margin-bottom:16px; }
@@ -82,9 +82,9 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
   .pw-playlist::-webkit-scrollbar-track { background:#111; }
   .pw-playlist::-webkit-scrollbar-thumb { background:#333; border-radius:2px; }
 }
-.pw-playlist li { display:flex; align-items:center; gap:10px; padding:8px 6px; cursor:pointer; border-radius:3px; font-size:14px; color:#555; transition:background .1s; }
-.pw-playlist li:hover { background:#1a1a1a; color:#eee; }
-.pw-playlist li.pw-active-track { color:#eee; background:#1a1a1a; }
+.pw-playlist li { display:flex; align-items:center; gap:10px; padding:8px 6px; cursor:pointer; border-radius:3px; font-size:14px; color:#888; transition:background .1s; }
+.pw-playlist li:hover { background:#1a1a1a; color:#fff; }
+.pw-playlist li.pw-active-track { color:#fff; background:#1a1a1a; }
 .pw-playlist li .pw-num { min-width:18px; text-align:right; flex-shrink:0; }
 .pw-playlist li .pw-dur { margin-left:auto; flex-shrink:0; }
 </style>
@@ -133,16 +133,18 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 
     <!-- Přehrávač 1: Demo playlist -->
     <div class="pw">
-      <div class="pw-label" style="display:flex; align-items:center; gap:8px;">
-        <img src="icons8-radio-64_2.png" alt="" style="width:26px; height:26px; opacity:0.65;">
-        <span>Dušanova kapela — demo</span>
+      <!-- Záhlaví: velká ikona vlevo, nápis + progress vpravo -->
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+        <img src="icons8-radio-64_2.png" alt="" style="width:80px; height:80px; flex-shrink:0; opacity:0.85;">
+        <div style="flex:1; min-width:0;">
+          <div class="pw-label" style="margin-bottom:6px;">Dušanova kapela — demo</div>
+          <div class="pw-title" id="p1-title">DK — Autobus</div>
+          <div class="pw-progress-wrap" id="p1-progwrap" style="margin-top:10px; margin-bottom:4px;">
+            <div class="pw-progress-fill" id="p1-prog"></div>
+          </div>
+          <div class="pw-times"><span id="p1-cur">0:00</span><span id="p1-dur">0:00</span></div>
+        </div>
       </div>
-      <div class="pw-title" id="p1-title">DK — Autobus</div>
-      <!--<div class="pw-subtitle">Demo nahrávka</div>-->
-      <div class="pw-progress-wrap" id="p1-progwrap">
-        <div class="pw-progress-fill" id="p1-prog"></div>
-      </div>
-      <div class="pw-times"><span id="p1-cur">0:00</span><span id="p1-dur">0:00</span></div>
       <div class="pw-controls-row">
         <div class="pw-controls">
           <button class="pw-btn" id="p1-restart" title="Začátek skladby">
@@ -171,14 +173,14 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
       </div>
       <hr class="pw-divider">
       <ul class="pw-playlist" id="p1-list">
-        <li data-src="/data/mp3_mix1/mix_bus_14_4.mp3"       class="pw-active-track"><span class="pw-num"><img src="icons8-rock-music-50.png" alt="▶" style="width:16px;height:16px;vertical-align:middle;filter:invert(1);"></span><span>DK — Autobus</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_fish_30.mp3"        ><span class="pw-num">2</span><span>DK — Fishbelly</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_dum_18_1.mp3"       ><span class="pw-num">3</span><span>DK — O dům dál</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_kolotoc_16.mp3"     ><span class="pw-num">4</span><span>DK — Kolotoč</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_tvare_12.mp3"       ><span class="pw-num">5</span><span>DK — Tváře</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_mesto_14_2.mp3"     ><span class="pw-num">6</span><span>DK — Město na kopci</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_sestup_7_4.mp3"     ><span class="pw-num">7</span><span>DK — Sestup</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/DK_S85_T927_slunko.mp3" ><span class="pw-num">8</span><span>DK — Slunko</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_bus_14_4.mp3"       class="pw-active-track"><span class="pw-num"><img src="icons8-rock-music-50.png" alt="▶" style="width:16px;height:16px;vertical-align:middle;filter:invert(1);"></span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Autobus</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_fish_30.mp3"        ><span class="pw-num">2</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Fishbelly</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_dum_18_1.mp3"       ><span class="pw-num">3</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — O dům dál</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_kolotoc_16.mp3"     ><span class="pw-num">4</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Kolotoč</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_tvare_12.mp3"       ><span class="pw-num">5</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Tváře</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_mesto_14_2.mp3"     ><span class="pw-num">6</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Město na kopci</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_sestup_7_4.mp3"     ><span class="pw-num">7</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Sestup</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/DK_S85_T927_slunko.mp3" ><span class="pw-num">8</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Slunko</span><span class="pw-dur"></span></li>
       </ul>
     </div>
 
@@ -273,13 +275,16 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
         <label>Nevyplňujte toto pole:</label>
         <input type="text" name="robot_check" value="">
       </div>
-      <p><textarea class="w3-input w3-padding-16" placeholder="Zpráva pro kapelu..." required name="Message" rows="5"></textarea></p>
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Jméno" required name="Name"></p>
+      <p><textarea name="Message" required rows="5" placeholder="Zpráva pro kapelu..."
+        style="width:100%; background:#1a1a1a; color:#ccc; border:1px solid #333; border-radius:6px; padding:12px; font-family:'Courier New',monospace; font-size:13px; resize:vertical; box-sizing:border-box;"></textarea></p>
+      <p><input type="text" name="Name" required placeholder="Jméno"
+        style="width:100%; background:#1a1a1a; color:#ccc; border:1px solid #333; border-radius:6px; padding:12px; font-family:'Courier New',monospace; font-size:13px; box-sizing:border-box;"></p>
       <p>
-        <button class="w3-button w3-light-grey w3-padding-large" type="submit">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle; margin-right:6px;" aria-hidden="true">
-            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-          </svg>
+        <button type="submit"
+          style="background:transparent; color:#bbb; border:1px solid #444; border-radius:6px; padding:8px 18px; font-family:'Courier New',monospace; font-size:13px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:background .15s,border-color .15s,color .15s;"
+          onmouseover="this.style.background='#222';this.style.borderColor='#bbb';this.style.color='#fff';"
+          onmouseout="this.style.background='transparent';this.style.borderColor='#444';this.style.color='#bbb';">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
           ODESLAT
         </button>
       </p>
@@ -299,7 +304,7 @@ function fmtTime(s) {
   const audio   = new Audio();
   const items   = Array.from(document.querySelectorAll('#p1-list li'));
   const srcs    = items.map(li => li.dataset.src);
-  const names   = items.map(li => li.querySelector('span:nth-child(2)').textContent);
+  const names   = items.map(li => li.querySelector('span:nth-child(3)').textContent);
   let current   = 0;
   let repeat    = false;
 
