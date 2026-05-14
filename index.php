@@ -35,7 +35,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 }
 
 /* ===== AUDIO PŘEHRÁVAČ ===== */
-.pw { background:#111; border:1px solid #333; border-radius:8px; padding:20px; font-family:"Courier New",monospace; box-sizing:border-box; max-width:480px; }
+.pw { background:#111; border:1px solid #1a6fba; border-radius:8px; padding:20px; font-family:"Courier New",monospace; box-sizing:border-box; max-width:480px; }
 .pw-label { font-size:12px; color:#888; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
 .pw-title { font-size:17px; color:#fff; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .pw-subtitle { font-size:13px; color:#888; margin-bottom:14px; }
@@ -87,6 +87,11 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 .pw-playlist li.pw-active-track { color:#fff; background:#1a1a1a; }
 .pw-playlist li .pw-num { min-width:18px; text-align:right; flex-shrink:0; }
 .pw-playlist li .pw-dur { margin-left:auto; flex-shrink:0; }
+
+/* Mobilní lišta */
+.mob-link { display:inline-block; width:25%; color:#888; font-family:Arial,sans-serif; font-size:13px; letter-spacing:1px; padding:15px 0; text-transform:uppercase; text-align:center; text-decoration:none; background:#111; border-bottom:1px solid #333; box-sizing:border-box; transition:background .15s,color .15s; }
+.mob-link:hover { background:#222; color:#eee; }
+.mob-link.mob-active { background:#000; color:#fff; }
 </style>
 </head>
 <body class="w3-black">
@@ -94,19 +99,14 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 <!-- Sidebar -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
   <img src="dk_logo.jpg" style="width:100%" alt="DK logo">
-  <a href="#home"   class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-home"><img src="singer.png" width="50" height="50" alt=""><p>HOME</p></a>
-  <a href="#about"  class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-about"><img src="icons8-radio-64_2.png" width="70" height="70" alt=""><p>DEMO</p></a>
-  <a href="#video"  class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-video"><img src="kytarista.png" width="50" height="50" alt=""><p>LIVE</p></a>
-  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-photos"><img src="singer.png" width="50" height="50" alt=""><p>FOTKY</p></a>
+  <a href="#home"   class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-home"><img src="ikony/drummer2.png" width="50" height="50" alt=""><p>HOME</p></a>
+  <a href="#about"  class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-about"><img src="ikony/radio.png" width="50" height="50" alt=""><p>DEMO</p></a>
+  <a href="#video"  class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-video"><img src="ikony/player2.png" width="50" height="50" alt=""><p>LIVE</p></a>
+  <a href="#photos" class="w3-bar-item w3-button w3-padding-large w3-hover-black nav-link" id="nav-photos"><img src="ikony/drinking.png" width="50" height="50" alt=""><p>FOTKY</p></a>
 </nav>
 
 <!-- Navbar na mobilu -->
 <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <style>
-    .mob-link { display:inline-block; width:25%; color:#888; font-family:Arial,sans-serif; font-size:13px; letter-spacing:1px; padding:15px 0; text-transform:uppercase; text-align:center; text-decoration:none; background:#111; border-bottom:1px solid #333; box-sizing:border-box; transition:background .15s,color .15s; }
-    .mob-link:hover { background:#222; color:#eee; }
-    .mob-link.mob-active { background:#000; color:#fff; }
-  </style>
   <div style="display:flex; border-bottom:1px solid #333;">
     <a href="#home"   class="mob-link mob-active" id="mob-home">Home</a>
     <a href="#about"  class="mob-link" id="mob-about">Demo</a>
@@ -120,7 +120,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
   <!-- Header -->
   <header class="w3-container w3-center w3-black" id="home" style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 16px; box-sizing:border-box;">
     <h1 class="w3-jumbo">Dušanova kapela</h1>
-    <img src="kapela1.jpeg" alt="Dušanova kapela" class="w3-image"
+    <img src="fotky/kapela1.jpeg" alt="Dušanova kapela" class="w3-image"
          style="border-radius:250px; max-height:65vh; width:auto; max-width:100%;">
     <p style="max-width:600px; margin-top:24px;">Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.</p>
   </header>
@@ -135,9 +135,9 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
     <div class="pw">
       <!-- Záhlaví: velká ikona vlevo, nápis + progress vpravo -->
       <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
-        <img src="icons8-radio-64_2.png" alt="" style="width:80px; height:80px; flex-shrink:0; opacity:0.85;">
+        <img src="ikony/radio.png" alt="" style="width:80px; height:80px; flex-shrink:0; opacity:0.85;">
         <div style="flex:1; min-width:0;">
-          <div class="pw-label" style="margin-bottom:6px;">Dušanova kapela — demo</div>
+         
           <div class="pw-title" id="p1-title">DK — Autobus</div>
           <div class="pw-progress-wrap" id="p1-progwrap" style="margin-top:10px; margin-bottom:4px;">
             <div class="pw-progress-fill" id="p1-prog"></div>
@@ -173,14 +173,14 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
       </div>
       <hr class="pw-divider">
       <ul class="pw-playlist" id="p1-list">
-        <li data-src="/data/mp3_mix1/mix_bus_14_4.mp3"       class="pw-active-track"><span class="pw-num"><img src="icons8-rock-music-50.png" alt="▶" style="width:16px;height:16px;vertical-align:middle;filter:invert(1);"></span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Autobus</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_fish_30.mp3"        ><span class="pw-num">2</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Fishbelly</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_dum_18_1.mp3"       ><span class="pw-num">3</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — O dům dál</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_kolotoc_16.mp3"     ><span class="pw-num">4</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Kolotoč</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_tvare_12.mp3"       ><span class="pw-num">5</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Tváře</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_mesto_14_2.mp3"     ><span class="pw-num">6</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Město na kopci</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/mix_sestup_7_4.mp3"     ><span class="pw-num">7</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Sestup</span><span class="pw-dur"></span></li>
-        <li data-src="/data/mp3_mix1/DK_S85_T927_slunko.mp3" ><span class="pw-num">8</span><img src="icons8-cassette-64.png" style="width:18px;height:18px;vertical-align:middle;opacity:0.5;margin-right:4px;"><span>DK — Slunko</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_bus_14_4.mp3"       class="pw-active-track"><img src="ikony/kazety.png" style="width:18px;height:18px;vertical-align:middle;flex-shrink:0;"><span class="pw-num"><img src="ikony/kytara.png" alt="▶" style="width:16px;height:16px;vertical-align:middle;filter:invert(1);"></span><span>DK — Autobus</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_fish_30.mp3"        ><img src="ikony/kazety.png" style="width:18px;height:18px;vertical-align:middle;flex-shrink:0;"><span class="pw-num">2</span><span>DK — Fishbelly</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_dum_18_1.mp3"       ><img src="ikony/kazety.png" style="width:18px;height:18px;vertical-align:middle;flex-shrink:0;"><span class="pw-num">3</span><span>DK — O dům dál</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_kolotoc_16.mp3"     ><img src="ikony/kazety.png" style="width:18px;height:18px;vertical-align:middle;flex-shrink:0;"><span class="pw-num">4</span><span>DK — Kolotoč</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_tvare_12.mp3"       ><img src="ikony/kazety.png" style="width:18px;height:18px;vertical-align:middle;flex-shrink:0;"><span class="pw-num">5</span><span>DK — Tváře</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_mesto_14_2.mp3"     ><img src="ikony/kazety.png" style="width:18px;height:18px;vertical-align:middle;flex-shrink:0;"><span class="pw-num">6</span><span>DK — Město na kopci</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/mix_sestup_7_4.mp3"     ><img src="ikony/kazety.png" style="width:18px;height:18px;vertical-align:middle;flex-shrink:0;"><span class="pw-num">7</span><span>DK — Sestup</span><span class="pw-dur"></span></li>
+        <li data-src="/data/mp3_mix1/DK_S85_T927_slunko.mp3" ><img src="ikony/kazety.png" style="width:18px;height:18px;vertical-align:middle;flex-shrink:0;"><span class="pw-num">8</span><span>DK — Slunko</span><span class="pw-dur"></span></li>
       </ul>
     </div>
 
@@ -190,7 +190,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 
   <!-- Video -->
   <div class="page-section" id="video">
-    <h2>Video — Live v Unleaded cafe 2025</h2>
+    <h2>Live v Unleaded cafe 2025</h2>
     <div class="video-container" style="margin-bottom:16px;">
       <iframe id="videoPlayer"
               src="https://www.youtube-nocookie.com/embed/BWg6EmP4nRI?rel=0&modestbranding=1&iv_load_policy=3"
@@ -236,11 +236,11 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
     <h2>Fotky</h2>
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-half">
-        <img src="dusan1.jpg" style="width:100%" alt="">
-        <img src="DK_zk.jpg"  style="width:100%" alt="">
+        <img src="fotky/dusan1.jpg" style="width:100%" alt="">
+        <img src="fotky/DK_zk.jpg"  style="width:100%" alt="">
       </div>
       <div class="w3-half">
-        <img src="kopr2.jpg" style="width:100%" alt="">
+        <img src="fotky/kopr2.jpg" style="width:100%" alt="">
       </div>
     </div>
   </div>
@@ -335,7 +335,7 @@ function fmtTime(s) {
       el.classList.toggle('pw-active-track', idx === i);
       const num = el.querySelector('.pw-num');
       if (idx === i) {
-        num.innerHTML = '<img src="icons8-rock-music-50.png" alt="▶" style="width:16px;height:16px;vertical-align:middle;filter:invert(1);">';
+        num.innerHTML = '<img src="ikony/kytara.png" alt="▶" style="width:16px;height:16px;vertical-align:middle;filter:invert(1);">';
       } else {
         num.textContent = idx + 1;
       }
