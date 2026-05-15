@@ -121,6 +121,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
   <header class="w3-container w3-center w3-black" id="home" style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 16px; box-sizing:border-box;">
     <h1 class="w3-jumbo">Dušanova kapela</h1>
     <img src="fotky/kapela1.jpeg" alt="Dušanova kapela" class="w3-image"
+         width="992" height="1108"
          style="border-radius:250px; max-height:65vh; width:auto; max-width:100%;">
     <p style="max-width:600px; margin-top:24px;">Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.</p>
   </header>
@@ -250,24 +251,10 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
     <h2 style="color:#ccc;">Kontakt</h2>
     <div class="w3-section">
       <p style="display:flex; align-items:center; gap:10px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#666" style="flex-shrink:0;" aria-hidden="true">
-          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
-        </svg>
+        <img src="ikony/jack3.png" width="28" height="28" style="flex-shrink:0;" aria-hidden="true">
         Email: dusan@mezi3a5.cz
       </p>
     </div><br>
-
-    <?php
-    if (isset($_GET['status'])) {
-        if ($_GET['status'] == 'success') {
-            echo '<div class="w3-panel w3-green w3-display-container"><span onclick="this.parentElement.style.display=\'none\'" class="w3-button w3-large w3-display-topright">&times;</span><h3>Úspěch!</h3><p>Vzkaz byl odeslán.</p></div>';
-        } elseif ($_GET['status'] == 'error') {
-            echo '<div class="w3-panel w3-red w3-display-container"><span onclick="this.parentElement.style.display=\'none\'" class="w3-button w3-large w3-display-topright">&times;</span><h3>Chyba!</h3><p>Vzkaz se nepodařilo odeslat.</p></div>';
-        } elseif ($_GET['status'] == 'bot') {
-            echo '<div class="w3-panel w3-orange w3-display-container"><span onclick="this.parentElement.style.display=\'none\'" class="w3-button w3-large w3-display-topright">&times;</span><h3>Chyba!</h3><p>Detekován spam.</p></div>';
-        }
-    }
-    ?>
 
     <p>Napiš vzkaz:</p>
     <form action="send_comment.php" method="POST">
@@ -279,7 +266,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
         style="width:100%; background:#1a1a1a; color:#ccc; border:1px solid #333; border-radius:6px; padding:12px; font-family:'Courier New',monospace; font-size:13px; resize:vertical; box-sizing:border-box;"></textarea></p>
       <p><input type="text" name="Name" required placeholder="Jméno"
         style="width:100%; background:#1a1a1a; color:#ccc; border:1px solid #333; border-radius:6px; padding:12px; font-family:'Courier New',monospace; font-size:13px; box-sizing:border-box;"></p>
-      <p>
+      <p style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
         <button type="submit"
           style="background:transparent; color:#bbb; border:1px solid #444; border-radius:6px; padding:8px 18px; font-family:'Courier New',monospace; font-size:13px; letter-spacing:1px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:background .15s,border-color .15s,color .15s;"
           onmouseover="this.style.background='#222';this.style.borderColor='#bbb';this.style.color='#fff';"
@@ -287,6 +274,25 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
           ODESLAT
         </button>
+        <?php if (isset($_GET['status'])): ?>
+          <?php if ($_GET['status'] == 'success'): ?>
+            <span style="display:inline-flex; align-items:center; gap:8px; background:#2e7d32; color:#fff; border-radius:6px; padding:6px 12px; font-size:13px; font-family:'Courier New',monospace;">
+              <img src="ikony/sleeping.png" width="28" height="28">
+              Vzkaz byl odeslán.
+              <span onclick="this.parentElement.style.display='none'" style="cursor:pointer; margin-left:4px; opacity:0.7;">&times;</span>
+            </span>
+          <?php elseif ($_GET['status'] == 'error'): ?>
+            <span style="display:inline-flex; align-items:center; gap:8px; background:#b71c1c; color:#fff; border-radius:6px; padding:6px 12px; font-size:13px; font-family:'Courier New',monospace;">
+              Vzkaz se nepodařilo odeslat.
+              <span onclick="this.parentElement.style.display='none'" style="cursor:pointer; margin-left:4px; opacity:0.7;">&times;</span>
+            </span>
+          <?php elseif ($_GET['status'] == 'bot'): ?>
+            <span style="display:inline-flex; align-items:center; gap:8px; background:#e65100; color:#fff; border-radius:6px; padding:6px 12px; font-size:13px; font-family:'Courier New',monospace;">
+              Detekován spam.
+              <span onclick="this.parentElement.style.display='none'" style="cursor:pointer; margin-left:4px; opacity:0.7;">&times;</span>
+            </span>
+          <?php endif; ?>
+        <?php endif; ?>
       </p>
     </form>
   </div>
@@ -484,7 +490,7 @@ function fmtTime(s) {
     card.style.cssText = 'background:#1a1a1a;border:2px solid transparent;border-radius:6px;overflow:hidden;cursor:pointer;';
     card.innerHTML =
       '<div style="position:relative;padding-bottom:56.25%;background:#000;overflow:hidden;">' +
-        '<img src="https://img.youtube.com/vi/' + v.id + '/mqdefault.jpg" alt="' + v.title + '" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">' +
+        '<img src="https://img.youtube.com/vi/' + v.id + '/mqdefault.jpg" alt="' + v.title + '" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">' +
         '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);">' +
           '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="white" opacity="0.85"><path d="M8 5v14l11-7z"/></svg>' +
         '</div></div>' +
