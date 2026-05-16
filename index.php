@@ -35,7 +35,7 @@ body, h1, h2, h3, h4, h5, h6 { font-family: "Lucida Console", "Courier New", mon
 }
 
 /* ===== AUDIO PŘEHRÁVAČ ===== */
-.pw { background:#111; border:1px solid #1a6fba; border-radius:8px; padding:20px; font-family:"Courier New",monospace; box-sizing:border-box; max-width:480px; }
+.pw { background:#111; border:1px solid #444; border-radius:8px; padding:20px; font-family:"Courier New",monospace; box-sizing:border-box; max-width:480px; }
 .pw-label { font-size:12px; color:#888; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; }
 .pw-title { font-size:17px; color:#fff; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .pw-subtitle { font-size:13px; color:#888; margin-bottom:14px; }
