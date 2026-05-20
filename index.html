@@ -116,7 +116,6 @@
 
         const loadedImages = [];
         let backgroundIcons = [];
-        // Zvýšený počet postaviček pro pořádnou party
         let iconCount = window.innerWidth < 600 ? 20 : 35; 
 
         function resize() {
@@ -146,7 +145,6 @@
                     attempts++;
                 } while (overlap && attempts < 100);
 
-                // Náhodný výběr obrázku ze seznamu načtených
                 const randomImg = loadedImages[Math.floor(Math.random() * loadedImages.length)];
 
                 backgroundIcons.push({
@@ -164,32 +162,35 @@
         const speed = 2.8; 
         
         let snake = [];
+        // --- OPRAVA: Startovní pozice posunuta do horní čtvrtiny obrazovky ---
         const startX = window.innerWidth / 2;
-        const startY = window.innerHeight / 2;
+        const startY = window.innerHeight / 4; 
+        
         for(let i = 0; i < letters.length; i++) {
-            snake.push({ x: startX - (i * spacing), y: startY }); 
+            snake.push({ x: startX + (i * spacing), y: startY }); 
         }
 
-        let angle = Math.random() * Math.PI * 2;
-        let targetAngle = angle;
+        let angle = Math.PI;
+        let targetAngle = Math.PI;
 
-        // --- Nová logika hromadného načítání obrázků ---
         let imagesLoaded = 0;
         let hasStarted = false;
 
         const startAnimation = () => {
-            if (hasStarted) return; // Zabrání vícenásobnému spuštění
+            if (hasStarted) return; 
             hasStarted = true;
             resize();
-            // Had se startuje po resize
+            
+            // Re-inicializace startovní pozice nahoře i po resize
             snake = [];
+            const currentStartX = window.innerWidth / 2;
+            const currentStartY = window.innerHeight / 4;
             for(let i = 0; i < letters.length; i++) {
-                snake.push({ x: startX - (i * spacing), y: startY }); 
+                snake.push({ x: currentStartX + (i * spacing), y: currentStartY }); 
             }
             loop();
         };
 
-        // Projdeme seznam a vytvoříme objekty Image
         imageFiles.forEach(file => {
             const img = new Image();
             img.src = file;
@@ -199,11 +200,9 @@
                     startAnimation();
                 }
             };
-            // I když se nějaký obrázek nepovede načíst, přidáme ho (na plátně se prostě nevykreslí)
             loadedImages.push(img);
         });
 
-        // Fallback: Pokud se do 2 vteřin nenačtou všechny obrázky (např. chyba sítě), spustíme to s tím, co máme
         setTimeout(() => {
             if (!hasStarted) {
                 startAnimation();
