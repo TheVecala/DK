@@ -10,6 +10,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dušanova kapela</title>
   <meta name="description" content="Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://www.dusanovakapela.cz/">
+  <meta property="og:title"       content="Dušanova kapela">
+  <meta property="og:description" content="Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.">
+  <meta property="og:image"       content="https://www.dusanovakapela.cz/fotky/kapela1.jpeg">
+  <meta property="og:locale"      content="cs_CZ">
+
+  <!-- Twitter Card (funguje i pro WhatsApp, Telegram) -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Dušanova kapela">
+  <meta name="twitter:description" content="Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.">
+  <meta name="twitter:image"       content="https://www.dusanovakapela.cz/fotky/kapela1.jpeg">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style>
