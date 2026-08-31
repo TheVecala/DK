@@ -1,3 +1,11 @@
+<?php
+$host = strtolower($_SERVER['HTTP_HOST'] ?? '');
+$isBetaHost = preg_match('/^beta\.dusanovakapela\.cz(?::\d+)?$/', $host) === 1;
+
+if ($isBetaHost) {
+    header('X-Robots-Tag: noindex, nofollow, noarchive');
+}
+?>
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -7,6 +15,9 @@
   <meta name="color-scheme" content="dark">
   <title>Dušanova kapela</title>
   <meta name="description" content="Alternativní hudební těleso vzniklé organickým procesem na troskách legendárních i bezejmenných brněnských uskupení.">
+  <?php if ($isBetaHost): ?>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <?php endif; ?>
   <link rel="canonical" href="https://www.dusanovakapela.cz/">
 
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
@@ -69,7 +80,7 @@
 
   <main id="main-content">
     <header class="hero" id="home">
-      <p class="hero-kicker">Brno · alternativní hudba</p>
+      <p class="hero-kicker">Brno · bigbít</p>
       <h1>Dušanova kapela</h1>
 
       <picture class="hero-media">
