@@ -4,31 +4,43 @@
 // OPRAVENO: email příjemce – uprav pokud bude nová schránka na dusanovakapela.cz
 $recipient = "dusan@mezi3a5.cz";
 
+function redirectWithStatus($status)
+{
+    header("Location: /?status={$status}#kontakt", true, 303);
+    exit;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 1. OCHRANA PROTI SPAMU (honeypot)
     if (!empty($_POST['robot_check'])) {
-        header("Location: index.php?status=bot#kontakt");
-        exit;
+        redirectWithStatus('bot');
     }
 
     // 2. NAČTENÍ A SANITACE DAT
-    $name    = strip_tags(trim($_POST["Name"] ?? ''));
-    // OPRAVENO: přidán strip_tags i pro zprávu
-    $message = strip_tags(trim($_POST["Message"] ?? ''));
+    $rawName = $_POST["Name"] ?? '';
+    $rawMessage = $_POST["Message"] ?? '';
+    if (!is_string($rawName) || !is_string($rawMessage)) {
+        redirectWithStatus('error');
+    }
+
+    $name = strip_tags(trim($rawName));
+    $message = strip_tags(trim($rawMessage));
+
+    // Řídicí znaky nemají být v předmětu ani v těle e-mailu.
+    $name = preg_replace('/[\x00-\x1F\x7F]+/u', ' ', $name) ?? '';
+    $message = preg_replace('/\r\n?|\n/u', "\n", $message) ?? '';
 
     $subject = "Nový vzkaz na webu od: $name";
 
     // 3. VALIDACE
     if (empty($name) || empty($message)) {
-        header("Location: index.php?status=error#kontakt");
-        exit;
+        redirectWithStatus('error');
     }
 
     // OPRAVENO: omezení délky zprávy na 5000 znaků
-    if (mb_strlen($message) > 5000) {
-        header("Location: index.php?status=error#kontakt");
-        exit;
+    if (mb_strlen($name) > 120 || mb_strlen($message) > 5000) {
+        redirectWithStatus('error');
     }
 
     // 4. SESTAVENÍ EMAILU
@@ -43,13 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
     // 5. ODESLÁNÍ
-    if (mail($recipient, $subject, $email_content, $email_headers)) {
-        header("Location: index.php?status=success#kontakt");
-    } else {
-        header("Location: index.php?status=error#kontakt");
-    }
+    redirectWithStatus(mail($recipient, $subject, $email_content, $email_headers) ? 'success' : 'error');
 
 } else {
-    header("Location: index.php");
+    header("Location: /", true, 303);
 }
-?>
