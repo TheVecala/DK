@@ -101,48 +101,55 @@ if ($isBetaHost) {
       <h2 class="section-heading" id="demo-heading">Demo</h2>
 
       <div class="pw" aria-label="Přehrávač demo nahrávek">
-        <div class="pw-header">
-          <img class="pw-cover" src="/ikony/radio.png" width="80" height="80" alt="" aria-hidden="true">
-          <div class="pw-track-info">
-            <div class="pw-title" id="p1-title" aria-live="polite">DK — Autobus</div>
-            <label class="sr-only" for="p1-progwrap">Pozice v demo nahrávce</label>
-            <input class="pw-progress-wrap" id="p1-progwrap" type="range" min="0" max="1000" value="0"
-                   aria-valuetext="0:00">
-            <div class="pw-times" aria-live="off">
-              <span id="p1-cur">0:00</span>
-              <span id="p1-dur">0:00</span>
+        <div class="pw-main-panel">
+          <div class="pw-main-content">
+            <div class="pw-header">
+              <img class="pw-cover" src="/ikony/radio.png" width="80" height="80" alt="" aria-hidden="true">
+              <div class="pw-track-info">
+                <div class="pw-title" id="p1-title" aria-live="polite">DK — Autobus</div>
+                <label class="sr-only" for="p1-progwrap">Pozice v demo nahrávce</label>
+                <input class="pw-progress-wrap" id="p1-progwrap" type="range" min="0" max="1000" value="0"
+                       aria-valuetext="0:00">
+                <div class="pw-times" aria-live="off">
+                  <span id="p1-cur">0:00</span>
+                  <span id="p1-dur">0:00</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pw-controls-row">
+              <div class="pw-controls" role="group" aria-label="Ovládání demo nahrávek">
+                <button class="pw-btn" id="p1-prev" type="button" title="Předchozí skladba" aria-label="Předchozí skladba">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 5h2v14H6zm3 7 10 7V5z"/></svg>
+                </button>
+                <button class="pw-btn pw-skip" id="p1-back" type="button" title="Zpět o 10 sekund" aria-label="Zpět o 10 sekund">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5V2L6.5 6 11 10V7a6 6 0 1 1-5.2 3H3.7A8 8 0 1 0 11 5z"/><text x="12.5" y="16">10</text></svg>
+                </button>
+                <button class="pw-btn pw-play" id="p1-play" type="button" title="Přehrát" aria-label="Přehrát demo">
+                  <svg viewBox="0 0 24 24" id="p1-icon" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <button class="pw-btn pw-skip" id="p1-forward" type="button" title="Vpřed o 10 sekund" aria-label="Vpřed o 10 sekund">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 5V2l4.5 4L13 10V7a6 6 0 1 0 5.2 3h2.1A8 8 0 1 1 13 5z"/><text x="7.5" y="16">10</text></svg>
+                </button>
+                <button class="pw-btn" id="p1-next" type="button" title="Další skladba" aria-label="Další skladba">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19l10-7L5 5zm11-14h2v14h-2z"/></svg>
+                </button>
+                <button class="pw-btn" id="p1-rep" type="button" title="Opakovat" aria-label="Opakovat skladbu" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="pw-controls-row">
-          <div class="pw-controls" role="group" aria-label="Ovládání demo nahrávek">
-            <button class="pw-btn" id="p1-restart" type="button" title="Začátek skladby" aria-label="Na začátek skladby">
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+          <div class="pw-volume-below pw-volume-vertical">
+            <button class="pw-volume-toggle" id="p1-mute" type="button" title="Ztlumit" aria-label="Ztlumit demo" aria-pressed="false">
+              <svg viewBox="0 0 24 24" id="p1-vol-icon" aria-hidden="true" focusable="false"><path d="M4 9v6h4l5 4V5L8 9H4zm11.5-.8v7.6a4 4 0 0 0 0-7.6zm0-3.2v2.1a6 6 0 0 1 0 9.8V19a8 8 0 0 0 0-14z"/></svg>
             </button>
-            <button class="pw-btn" id="p1-prev" type="button" title="Předchozí" aria-label="Předchozí skladba">
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 6h2v12H8zm3 6 8 6V6z"/></svg>
-            </button>
-            <button class="pw-btn pw-play" id="p1-play" type="button" title="Přehrát" aria-label="Přehrát demo">
-              <svg viewBox="0 0 24 24" id="p1-icon" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z"/></svg>
-            </button>
-            <button class="pw-btn" id="p1-next" type="button" title="Další" aria-label="Další skladba">
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 18l8.5-6L6 6v12zM16 6h2v12h-2z"/></svg>
-            </button>
-            <button class="pw-btn" id="p1-rep" type="button" title="Opakovat" aria-label="Opakovat skladbu" aria-pressed="false">
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="pw-volume-below">
-          <span class="pw-vol-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg>
-          </span>
-          <div class="pw-vol-wrap">
-            <div class="pw-vol-track-bg"></div>
-            <label class="sr-only" for="p1-vol">Hlasitost demo nahrávek</label>
-            <input type="range" class="pw-vol-slider" min="0" max="100" value="80" id="p1-vol" aria-valuetext="80 %">
+            <div class="pw-vol-wrap">
+              <label class="sr-only" for="p1-vol">Hlasitost</label>
+              <input type="range" class="pw-vol-slider" min="0" max="100" value="80" id="p1-vol" aria-valuetext="80 %">
+            </div>
+            <output class="pw-volume-value" id="p1-vol-value" for="p1-vol">80 %</output>
           </div>
         </div>
 

@@ -34,8 +34,12 @@ function coordinateAudio(audio) {
   const icon = document.getElementById('p1-icon');
   const btnPrev = document.getElementById('p1-prev');
   const btnNext = document.getElementById('p1-next');
-  const btnRestart = document.getElementById('p1-restart');
+  const btnBack = document.getElementById('p1-back');
+  const btnForward = document.getElementById('p1-forward');
   const btnRepeat = document.getElementById('p1-rep');
+  const btnMute = document.getElementById('p1-mute');
+  const volumeIcon = document.getElementById('p1-vol-icon');
+  const volumeValue = document.getElementById('p1-vol-value');
   const seek = document.getElementById('p1-progwrap');
   const currentTime = document.getElementById('p1-cur');
   const duration = document.getElementById('p1-dur');
@@ -46,6 +50,26 @@ function coordinateAudio(audio) {
   audio.volume = Number(volume.value) / 100;
   audio.src = srcs[0];
   coordinateAudio(audio);
+
+  function updateVolumeState() {
+    const value = Number(volume.value);
+    const muted = audio.muted || value === 0;
+    volume.style.setProperty('--volume', `${muted ? 0 : value}%`);
+    volumeValue.textContent = `${value} %`;
+    volume.setAttribute('aria-valuetext', muted && value > 0 ? `Ztlumeno, nastaveno ${value} %` : `${value} %`);
+    btnMute.classList.toggle('pw-active', muted);
+    btnMute.setAttribute('aria-pressed', String(audio.muted));
+    btnMute.setAttribute('aria-label', audio.muted ? 'Zapnout zvuk dema' : 'Ztlumit demo');
+    btnMute.title = audio.muted ? 'Zapnout zvuk' : 'Ztlumit';
+    volumeIcon.innerHTML = muted
+      ? '<path d="M4 9v6h4l5 4V5L8 9H4zm12.6 3 2.7-2.7-1.4-1.4-2.7 2.7-2.7-2.7-1.4 1.4 2.7 2.7-2.7 2.7 1.4 1.4 2.7-2.7 2.7 2.7 1.4-1.4z"/>'
+      : '<path d="M4 9v6h4l5 4V5L8 9H4zm11.5-.8v7.6a4 4 0 0 0 0-7.6zm0-3.2v2.1a6 6 0 0 1 0 9.8V19a8 8 0 0 0 0-14z"/>';
+  }
+
+  function skipBy(seconds) {
+    if (!Number.isFinite(audio.duration)) return;
+    audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + seconds));
+  }
 
   function setPlayState(playing) {
     icon.innerHTML = playing
@@ -82,8 +106,12 @@ function coordinateAudio(audio) {
   });
   audio.addEventListener('play', () => setPlayState(true));
   audio.addEventListener('pause', () => setPlayState(false));
-  btnRestart.addEventListener('click', () => { audio.currentTime = 0; });
-  btnPrev.addEventListener('click', () => loadTrack((current - 1 + srcs.length) % srcs.length, !audio.paused));
+  btnBack.addEventListener('click', () => skipBy(-10));
+  btnForward.addEventListener('click', () => skipBy(10));
+  btnPrev.addEventListener('click', () => {
+    if (audio.currentTime > 3) audio.currentTime = 0;
+    else loadTrack((current - 1 + srcs.length) % srcs.length, !audio.paused);
+  });
   btnNext.addEventListener('click', () => loadTrack((current + 1) % srcs.length, !audio.paused));
 
   btnRepeat.addEventListener('click', () => {
@@ -121,10 +149,17 @@ function coordinateAudio(audio) {
 
   volume.addEventListener('input', () => {
     audio.volume = Number(volume.value) / 100;
-    volume.setAttribute('aria-valuetext', `${volume.value} %`);
+    if (audio.muted && Number(volume.value) > 0) audio.muted = false;
+    updateVolumeState();
+  });
+
+  btnMute.addEventListener('click', () => {
+    audio.muted = !audio.muted;
+    updateVolumeState();
   });
 
   items.forEach((item, index) => item.addEventListener('click', () => loadTrack(index, true)));
+  updateVolumeState();
 })();
 
 /* Full concert recording */
@@ -172,6 +207,7 @@ function coordinateAudio(audio) {
   });
   volume.addEventListener('input', () => {
     audio.volume = Number(volume.value) / 100;
+    volume.style.setProperty('--volume', `${volume.value}%`);
     volume.setAttribute('aria-valuetext', `${volume.value} %`);
   });
 })();
