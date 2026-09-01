@@ -168,6 +168,9 @@ function coordinateAudio(audio) {
   const btnPlay = document.getElementById('p2-play');
   const icon = document.getElementById('p2-icon');
   const btnRestart = document.getElementById('p2-restart');
+  const btnMute = document.getElementById('p2-mute');
+  const volumeIcon = document.getElementById('p2-vol-icon');
+  const volumeValue = document.getElementById('p2-vol-value');
   const seek = document.getElementById('p2-progwrap');
   const currentTime = document.getElementById('p2-cur');
   const duration = document.getElementById('p2-dur');
@@ -176,6 +179,21 @@ function coordinateAudio(audio) {
   audio.preload = 'metadata';
   audio.volume = Number(volume.value) / 100;
   coordinateAudio(audio);
+
+  function updateVolumeState() {
+    const value = Number(volume.value);
+    const muted = audio.muted || value === 0;
+    volume.style.setProperty('--volume', `${muted ? 0 : value}%`);
+    volumeValue.textContent = `${value} %`;
+    volume.setAttribute('aria-valuetext', muted && value > 0 ? `Ztlumeno, nastaveno ${value} %` : `${value} %`);
+    btnMute.classList.toggle('pw-active', muted);
+    btnMute.setAttribute('aria-pressed', String(audio.muted));
+    btnMute.setAttribute('aria-label', audio.muted ? 'Zapnout zvuk koncertního záznamu' : 'Ztlumit koncertní záznam');
+    btnMute.title = audio.muted ? 'Zapnout zvuk' : 'Ztlumit';
+    volumeIcon.innerHTML = muted
+      ? '<path d="M4 9v6h4l5 4V5L8 9H4zm12.6 3 2.7-2.7-1.4-1.4-2.7 2.7-2.7-2.7-1.4 1.4 2.7 2.7-2.7 2.7 1.4 1.4 2.7-2.7 2.7 2.7 1.4-1.4z"/>'
+      : '<path d="M4 9v6h4l5 4V5L8 9H4zm11.5-.8v7.6a4 4 0 0 0 0-7.6zm0-3.2v2.1a6 6 0 0 1 0 9.8V19a8 8 0 0 0 0-14z"/>';
+  }
 
   function setPlayState(playing) {
     icon.innerHTML = playing
@@ -207,9 +225,16 @@ function coordinateAudio(audio) {
   });
   volume.addEventListener('input', () => {
     audio.volume = Number(volume.value) / 100;
-    volume.style.setProperty('--volume', `${volume.value}%`);
-    volume.setAttribute('aria-valuetext', `${volume.value} %`);
+    if (audio.muted && Number(volume.value) > 0) audio.muted = false;
+    updateVolumeState();
   });
+
+  btnMute.addEventListener('click', () => {
+    audio.muted = !audio.muted;
+    updateVolumeState();
+  });
+
+  updateVolumeState();
 })();
 
 /* Active navigation state */

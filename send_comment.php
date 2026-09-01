@@ -1,12 +1,15 @@
 <?php
 // send_comment.php
 
+session_start();
+
 // OPRAVENO: email příjemce – uprav pokud bude nová schránka na dusanovakapela.cz
 $recipient = "dusan@mezi3a5.cz";
 
 function redirectWithStatus($status)
 {
-    header("Location: /?status={$status}#kontakt", true, 303);
+    $_SESSION['form_status'] = $status;
+    header("Location: /#kontakt", true, 303);
     exit;
 }
 

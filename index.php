@@ -1,6 +1,10 @@
 <?php
+session_start();
+
 $host = strtolower($_SERVER['HTTP_HOST'] ?? '');
 $isBetaHost = preg_match('/^beta\.dusanovakapela\.cz(?::\d+)?$/', $host) === 1;
+$formStatus = $_SESSION['form_status'] ?? null;
+unset($_SESSION['form_status']);
 
 if ($isBetaHost) {
     header('X-Robots-Tag: noindex, nofollow, noarchive');
@@ -187,32 +191,37 @@ if ($isBetaHost) {
 
       <div class="concert-player">
         <div class="pw" aria-label="Přehrávač celého koncertu">
-          <div class="pw-subtitle">Zvukový záznam celého koncertu</div>
-          <div class="pw-title">Live v Unleaded Café 2025</div>
-          <label class="sr-only" for="p2-progwrap">Pozice v koncertním záznamu</label>
-          <input class="pw-progress-wrap" id="p2-progwrap" type="range" min="0" max="1000" value="0" aria-valuetext="0:00">
-          <div class="pw-times">
-            <span id="p2-cur">0:00</span>
-            <span id="p2-dur">0:00</span>
-          </div>
-          <div class="pw-controls-row">
-            <div class="pw-controls" role="group" aria-label="Ovládání koncertního záznamu">
-              <button class="pw-btn" id="p2-restart" type="button" title="Začátek" aria-label="Na začátek koncertního záznamu">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
-              </button>
-              <button class="pw-btn pw-play" id="p2-play" type="button" title="Přehrát" aria-label="Přehrát koncertní záznam">
-                <svg viewBox="0 0 24 24" id="p2-icon" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-              </button>
+          <div class="pw-main-panel">
+            <div class="pw-main-content">
+              <div class="pw-subtitle">Zvukový záznam celého koncertu</div>
+              <div class="pw-title">Live v Unleaded Café 2025</div>
+              <label class="sr-only" for="p2-progwrap">Pozice v koncertním záznamu</label>
+              <input class="pw-progress-wrap" id="p2-progwrap" type="range" min="0" max="1000" value="0" aria-valuetext="0:00">
+              <div class="pw-times">
+                <span id="p2-cur">0:00</span>
+                <span id="p2-dur">0:00</span>
+              </div>
+              <div class="pw-controls-row">
+                <div class="pw-controls" role="group" aria-label="Ovládání koncertního záznamu">
+                  <button class="pw-btn" id="p2-restart" type="button" title="Začátek" aria-label="Na začátek koncertního záznamu">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+                  </button>
+                  <button class="pw-btn pw-play" id="p2-play" type="button" title="Přehrát" aria-label="Přehrát koncertní záznam">
+                    <svg viewBox="0 0 24 24" id="p2-icon" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="pw-volume">
-              <span class="pw-vol-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/></svg>
-              </span>
+
+            <div class="pw-volume-below pw-volume-vertical">
+              <button class="pw-volume-toggle" id="p2-mute" type="button" title="Ztlumit" aria-label="Ztlumit koncertní záznam" aria-pressed="false">
+                <svg viewBox="0 0 24 24" id="p2-vol-icon" aria-hidden="true" focusable="false"><path d="M4 9v6h4l5 4V5L8 9H4zm11.5-.8v7.6a4 4 0 0 0 0-7.6zm0-3.2v2.1a6 6 0 0 1 0 9.8V19a8 8 0 0 0 0-14z"/></svg>
+              </button>
               <div class="pw-vol-wrap">
-                <div class="pw-vol-track-bg"></div>
                 <label class="sr-only" for="p2-vol">Hlasitost koncertního záznamu</label>
                 <input type="range" class="pw-vol-slider" min="0" max="100" value="80" id="p2-vol" aria-valuetext="80 %">
               </div>
+              <output class="pw-volume-value" id="p2-vol-value" for="p2-vol">80 %</output>
             </div>
           </div>
         </div>
@@ -277,19 +286,19 @@ if ($isBetaHost) {
             <span>ODESLAT VZKAZ</span>
           </button>
 
-          <?php if (isset($_GET['status'])): ?>
-            <?php if ($_GET['status'] === 'success'): ?>
+          <?php if ($formStatus !== null): ?>
+            <?php if ($formStatus === 'success'): ?>
               <div class="form-status form-status-success" role="status" aria-live="polite">
                 <img src="/ikony/sleeping.png" width="28" height="28" alt="" aria-hidden="true">
                 <span>Vzkaz byl odeslán.</span>
                 <button class="status-close" type="button" aria-label="Skrýt zprávu">&times;</button>
               </div>
-            <?php elseif ($_GET['status'] === 'error'): ?>
+            <?php elseif ($formStatus === 'error'): ?>
               <div class="form-status form-status-error" role="alert">
                 <span>Vzkaz se nepodařilo odeslat. Zkus to prosím znovu.</span>
                 <button class="status-close" type="button" aria-label="Skrýt zprávu">&times;</button>
               </div>
-            <?php elseif ($_GET['status'] === 'bot'): ?>
+            <?php elseif ($formStatus === 'bot'): ?>
               <div class="form-status form-status-warning" role="alert">
                 <span>Zpráva byla vyhodnocena jako spam.</span>
                 <button class="status-close" type="button" aria-label="Skrýt zprávu">&times;</button>
