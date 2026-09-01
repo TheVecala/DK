@@ -80,11 +80,11 @@ if ($isBetaHost) {
 
   <main id="main-content">
     <header class="hero" id="home">
-      <p class="hero-kicker">Brno · bigbít</p>
+      <p class="hero-kicker">bigbít · Brno</p>
       <h1>Dušanova kapela</h1>
 
       <picture class="hero-media">
-        <source srcset="/fotky/kapela1-1200.webp" type="image/webp">
+        <source srcset="/fotky/uvod-autobus.webp" type="image/webp">
         <img class="hero-image" src="/fotky/kapela1.jpeg" width="1600" height="1196"
              alt="Dva členové Dušanovy kapely na cestě krajinou"
              fetchpriority="high" decoding="async">

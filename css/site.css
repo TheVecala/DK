@@ -843,10 +843,6 @@ a {
 }
 
 @media (max-width: 720px) {
-  html {
-    scroll-padding-top: 58px;
-  }
-
   .side-nav {
     display: none;
   }
@@ -892,6 +888,7 @@ a {
   .hero {
     min-height: calc(100svh - 58px);
     padding: 34px 22px 42px;
+    scroll-margin-top: 58px;
   }
 
   .hero-media {
@@ -905,7 +902,9 @@ a {
 
   .page-section {
     padding: 48px 16px;
-    scroll-margin-top: 58px;
+    /* The target is the section box, while its heading starts 48px lower.
+       Keep that padding behind the fixed 58px nav and leave an 8px gap. */
+    scroll-margin-top: 18px;
   }
 
   .photo-grid {
