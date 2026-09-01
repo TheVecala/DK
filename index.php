@@ -123,13 +123,13 @@ if ($isBetaHost) {
                   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 5h2v14H6zm3 7 10 7V5z"/></svg>
                 </button>
                 <button class="pw-btn pw-skip" id="p1-back" type="button" title="Zpět o 10 sekund" aria-label="Zpět o 10 sekund">
-                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5V2L6.5 6 11 10V7a6 6 0 1 1-5.2 3H3.7A8 8 0 1 0 11 5z"/><text x="12.5" y="16">10</text></svg>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="pw-skip-arrow" d="M5.2 8A8 8 0 1 1 4 15M4 4v4h4"/><text x="12" y="14.5">10</text></svg>
                 </button>
                 <button class="pw-btn pw-play" id="p1-play" type="button" title="Přehrát" aria-label="Přehrát demo">
                   <svg viewBox="0 0 24 24" id="p1-icon" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z"/></svg>
                 </button>
                 <button class="pw-btn pw-skip" id="p1-forward" type="button" title="Vpřed o 10 sekund" aria-label="Vpřed o 10 sekund">
-                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 5V2l4.5 4L13 10V7a6 6 0 1 0 5.2 3h2.1A8 8 0 1 1 13 5z"/><text x="7.5" y="16">10</text></svg>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="pw-skip-arrow" d="M18.8 8A8 8 0 1 0 20 15M20 4v4h-4"/><text x="12" y="14.5">10</text></svg>
                 </button>
                 <button class="pw-btn" id="p1-next" type="button" title="Další skladba" aria-label="Další skladba">
                   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19l10-7L5 5zm11-14h2v14h-2z"/></svg>
